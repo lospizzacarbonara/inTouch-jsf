@@ -22,9 +22,9 @@ import javax.enterprise.context.RequestScoped;
  *
  * @author jfaldanam
  */
-@Named(value = "searchBean")
+@Named(value = "SearchBean")
 @RequestScoped
-public class searchBean {
+public class SearchBean {
     @EJB
     UserFacade userFacade;
 

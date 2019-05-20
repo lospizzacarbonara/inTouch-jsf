@@ -19,13 +19,13 @@ and open the template in the editor.
             <h:form>
                 <fieldset>
                      <legend>Search for users and groups</legend>
-                     Search: <h:inputText value="#{searchBean.searchText}" /><br/>
-                     <h:commandButton value="Guardar" action="#{searchBean.search()}"/>
+                     Search: <h:inputText value="#{SearchBean.searchText}" /><br/>
+                     <h:commandButton value="Guardar" action="#{SearchBean.search()}"/>
                  </fieldset>
             </h:form>
         </h:panelGroup>
         <!-- Friends -->
-        <h:panelGroup rendered="#{!searchBean.userSet.isEmpty()}">
+        <h:panelGroup rendered="#{!SearchBean.userSet.isEmpty()}">
             <fieldset>
                 <legend>Users</legend> 
                 <table>
@@ -34,7 +34,7 @@ and open the template in the editor.
             </fieldset>
         </h:panelGroup>
         <!-- No Friends -->
-        <h:panelGroup rendered="#{searchBean.userSet.isEmpty()}">
+        <h:panelGroup rendered="#{SearchBean.userSet.isEmpty()}">
             <fieldset>
                 <legend>Users</legend>
                 <p>User has no friends yet.</p>
