@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <link rel="stylesheet" href="resources/css/inTouch.css" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="resources/css/inTouch.css"/>
+        <link rel="stylesheet" href="resources/css/navmenu.css"/>
         <style>
           td {
               border-top: 1px solid white;
@@ -149,7 +151,7 @@
             #createGroupModal{
                 color: black;
             }
-      </style>
+        </style>
         <title>InTouch</title>
     </h:head>
     <h:body>
@@ -282,7 +284,7 @@
                 <span class="close">&times;</span>
                 <div align="center"><p>Mensaje:</p></div>
                 <h:form id="postForm">
-                    <h:inputTextarea rows="5" cols="50" required="true"></h:inputTextarea><br/><br/>
+                    <h:inputTextarea rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
                     public <h:selectBooleanCheckbox  value="" /><br/>
                     <!-- date and author on servlet -->
                     <h:commandButton value="submit"/>
@@ -296,7 +298,7 @@
             <span class="close">&times;</span>
             <h:form id="createGroupForm">
                 <div align="center"><p>GroupName</p></div>
-                <h:inputText class="groupName" value="groupName" requiredMessage="eres un necio"/>
+                <h:inputText class="groupName" value="groupName" required="true" requiredMessage="El nombre es obligatorio"/>
                 <br/><br/><br/>
                 <div align="center"><p>groupDesc</p></div>
                 <h:inputTextarea rows="5" cols="50"></h:inputTextarea><br/><br/>
