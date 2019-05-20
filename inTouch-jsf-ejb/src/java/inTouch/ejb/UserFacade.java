@@ -5,10 +5,15 @@
  */
 package inTouch.ejb;
 
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
+import inTouch.entity.Membership;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +34,105 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
+    public List<User> findByUsername(String username) {
+        try {
+            return em.createNamedQuery("User.findByUsername")
+                .setParameter("username", "%" + username + "%")
+                .getResultList();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public User findByUsernameAndPassword(String username, String hash) {
+        try {
+            return (User) em.createNamedQuery("User.findByUsernameAndPassword")
+                .setParameter("username",  username )
+                .setParameter("hash", hash )
+                .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<User> findFriends(User u) {
+        try {
+            List<User> list = em.createNamedQuery("Friendship.findFriends")
+                .setParameter("user", u)
+                .getResultList();
+                        
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<User> findPendingFriends(User u) {
+        try {
+            List<User> list = em.createNamedQuery("PendingFriendship.findFriends")
+                .setParameter("user", u)
+                .getResultList();
+            
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<User> findPendingToAcceptFriends(User u) {
+        try {
+            List<User> list = em.createNamedQuery("PendingFriendship.findPendingToAcceptFriends")
+                .setParameter("user", u)
+                .getResultList();
+            
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    //Get a List with all the groups of an user
+    public List<SocialGroup> findSocialGroups(User u) {
+        try{
+            List<SocialGroup> list = em.createNamedQuery("SocialGroup.findSocialGroups")
+                    .setParameter("user", u)
+                    .getResultList();
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    //Get a List with all the pending groups of an user
+    public List<SocialGroup> findPendingMemberships(User u) {
+        try{
+            List<SocialGroup> list = em.createNamedQuery("PendingMembership.findPendingSocialGroups")
+                    .setParameter("user", u)
+                    .getResultList();
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    //Get a List with all the pending groups of an user
+    public List<SocialGroup> findPendingInvitationMemberships(User u) {
+        try{
+            List<SocialGroup> list = em.createNamedQuery("PendingMembership.findPendingInvitationSocialGroups")
+                    .setParameter("user", u)
+                    .getResultList();
+            return list;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public List<User> getUserList(SocialGroup group){
+        List<User> list;
+        Query q;
+        q = this.em.createQuery("select m.member1 FROM Membership m where m.socialGroup = :sg ")
+                .setParameter("sg", group);
+        list = q.getResultList();
+        return list;
+    }
 }

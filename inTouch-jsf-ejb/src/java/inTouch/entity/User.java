@@ -35,15 +35,20 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+    , @NamedQuery(name = "User.findByUsernameAndPassword", query = "SELECT u FROM User u WHERE u.username = :username and u.password = :hash")
     , @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id")
-    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
+    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username like :username")
     , @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name")
     , @NamedQuery(name = "User.findBySurname", query = "SELECT u FROM User u WHERE u.surname = :surname")
     , @NamedQuery(name = "User.findByBirthdate", query = "SELECT u FROM User u WHERE u.birthdate = :birthdate")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email")})
-public class User implements Serializable {
+public class User implements Serializable, Comparable {
 
+    public enum friendStatus {
+        friends, pending, unrelated;
+    }
+    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -222,7 +227,7 @@ public class User implements Serializable {
     public void setPendingMembershipCollection(Collection<PendingMembership> pendingMembershipCollection) {
         this.pendingMembershipCollection = pendingMembershipCollection;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -245,7 +250,13 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.entity.User[ id=" + id + " ]";
+        return "inTouch.entity.User[ id=" + id + " ]";
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        User other = (User)o;
+        return Integer.compare(other.getId(), this.getId());
     }
     
 }

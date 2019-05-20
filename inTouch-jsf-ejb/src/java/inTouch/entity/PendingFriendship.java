@@ -29,7 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PendingFriendship.findAll", query = "SELECT p FROM PendingFriendship p")
-    , @NamedQuery(name = "PendingFriendship.findById", query = "SELECT p FROM PendingFriendship p WHERE p.id = :id")})
+    , @NamedQuery(name = "PendingFriendship.findById", query = "SELECT p FROM PendingFriendship p WHERE p.id = :id")
+    , @NamedQuery(name = "PendingFriendship.findFriends", query = "SELECT p.receiver FROM PendingFriendship p WHERE p.sender = :user")
+    , @NamedQuery(name = "PendingFriendship.findPendingToAcceptFriends", query = "SELECT p.sender FROM PendingFriendship p WHERE p.receiver = :user")
+    , @NamedQuery(name = "PendingFriendship.findPendingFriendship", query = "SELECT p FROM PendingFriendship p WHERE p.sender = :user1 and p.receiver = :user2")})
 public class PendingFriendship implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -99,7 +102,7 @@ public class PendingFriendship implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.entity.PendingFriendship[ id=" + id + " ]";
+        return "inTouch.entity.PendingFriendship[ id=" + id + " ]";
     }
     
 }

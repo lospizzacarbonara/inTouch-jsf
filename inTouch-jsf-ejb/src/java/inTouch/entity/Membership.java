@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Membership.findAll", query = "SELECT m FROM Membership m")
     , @NamedQuery(name = "Membership.findById", query = "SELECT m FROM Membership m WHERE m.id = :id")
-    , @NamedQuery(name = "Membership.findByAdmin", query = "SELECT m FROM Membership m WHERE m.admin = :admin")})
+    , @NamedQuery(name = "Membership.findByAdmin", query = "SELECT m FROM Membership m WHERE m.admin = :admin")
+    , @NamedQuery(name = "Membership.groupsInCommon", query = "SELECT DISTINCT m1.socialGroup FROM Membership m1, Membership m2 WHERE m1.member1 = :user1 and m2.member1 = :user2")
+    })
 public class Membership implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -116,7 +118,7 @@ public class Membership implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.entity.Membership[ id=" + id + " ]";
+        return "inTouch.entity.Membership[ id=" + id + " ]";
     }
     
 }
