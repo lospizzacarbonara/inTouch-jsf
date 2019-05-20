@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Search</title>
+        <link rel="stylesheet" href="resources/css/inTouch.css" />
+        <link rel="stylesheet" href="resources/css/navmenu.css" />
+        <link rel="stylesheet" href="resources/css/friends.css" />
+    </h:head>
+     <h:body>
+         <h:panelGroup>
+            <h:form>
+                <fieldset>
+                     <legend>Search for users and groups</legend>
+                     Search: <h:inputText value="#{searchBean.searchText}" /><br/>
+                     <h:commandButton value="Guardar" action="#{searchBean.search()}"/>
+                 </fieldset>
+            </h:form>
+        </h:panelGroup>
+        <!-- Friends -->
+        <h:panelGroup rendered="#{!searchBean.userSet.isEmpty()}">
+            <fieldset>
+                <legend>Users</legend> 
+                <table>
+ 
+                </table>
+            </fieldset>
+        </h:panelGroup>
+        <!-- No Friends -->
+        <h:panelGroup rendered="#{searchBean.userSet.isEmpty()}">
+            <fieldset>
+                <legend>Users</legend>
+                <p>User has no friends yet.</p>
+            </fieldset>
+        </h:panelGroup>
+        <!-- Groups -->
+
+    </h:body>
+</html>
