@@ -33,7 +33,7 @@ public class SearchBean {
     /**
      * Creates a new instance of searchBean
      */
-    public searchBean() {
+    public SearchBean() {
     }
 
     public String getSearchText() {
@@ -62,8 +62,9 @@ public class SearchBean {
     public void init() {
         List<User> userList = null;
         Map<User, Object[]> userData = new TreeMap<User, Object[]>();
-        List<User> friends = this.userFacade.findFriends(new User(99));
-        List<User> pendingFriends = this.userFacade.findPendingFriends(new User(99));
+        User tmpUser = this.userFacade.find(3);
+        List<User> friends = this.userFacade.findFriends(tmpUser);
+        List<User> pendingFriends = this.userFacade.findPendingFriends(tmpUser);
         
         if (searchText != null) {
             userList = this.userFacade.findByUsername(searchText);
@@ -93,7 +94,7 @@ public class SearchBean {
         } else {
             userData = null;
         }
-        
+
         
     }
 }
