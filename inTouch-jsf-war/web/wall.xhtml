@@ -3,12 +3,159 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
+        <link rel="stylesheet" href="resources/css/inTouch.css" />
+        <style>
+          td {
+              border-top: 1px solid white;
+          }
+          
+          h1{
+              text-align: center;
+          }
+          
+          ul{
+              margin: 0;
+              padding: 14px;
+          }
+          
+          .groupList{
+              vertical-align: top;
+          }
+          
+          .inviteList{
+              vertical-align: top;
+          }
+
+          .tablink {
+              background-color: #555;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              outline: none;
+              cursor: pointer;
+              padding: 14px 16px;
+              font-size: 17px;
+              width: 25%;
+          }
+
+          .tablink:hover {
+              background-color: #777;
+          }
+
+          /* Style the tab content */
+          .tabcontent {
+              color: black;
+              display: none;
+              padding: 50px;
+          }
+
+          .wallTable {
+              border-collapse: separate;
+              border-spacing: 5px 5px;
+          }
+
+          .tabButtons{
+              padding-left: 5px;
+              padding-right: 5px;
+              width: 470px;
+          }
+
+          .groupHeader{
+              width: 150px;
+          }
+
+          .inviteHeader{
+              width: 150px;
+          }
+
+          .list{
+              left: 50%;
+          }
+
+          .fixedButton {
+              position: fixed;
+              bottom: 75px;
+              right: 380px;
+              padding: 12px 28px;
+          }
+          
+          #postButton {
+              position: fixed;
+              bottom: 75px;
+              right: 280px;
+              padding: 12px 28px;
+          }
+
+          textArea {
+              font-family: Arial, Helvetica, sans-serif;
+              color: black;
+              background: #b0bec5;
+              border: none;
+              border-radius: 4px;
+                  
+          }
+          
+          .groupName {
+              background: #b0bec5;
+              border: none;
+              border-radius: 4px;
+          }
+          
+          /* The Modal (background) */
+          .modal {
+              display: none; /* Hidden by default */
+              position: fixed; /* Stay in place */
+              z-index: 1; /* Sit on top */
+              padding-top: 100px; /* Location of the box */
+              left: 0;
+              top: 0;
+              width: 100%; /* Full width */
+              height: 100%; /* Full height */
+              overflow: auto; /* Enable scroll if needed */
+              background-color: rgb(0,0,0); /* Fallback color */
+              background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+           }
+           
+           /* Modal Content */
+            .modal-content {
+              background-color: #37474f;
+              margin: auto;
+              padding: 20px;
+              border: 1px solid #888;
+              border-radius: 8px;
+              width: 80%;
+              color:white;
+            }
+
+            /* The Close Button */
+            .close {
+              color: #aaaaaa;
+              float: right;
+              font-size: 28px;
+              font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+              color: #000;
+              text-decoration: none;
+              cursor: pointer;
+            }
+            
+            #postModal{
+                color: black;
+            }
+            
+            #createGroupModal{
+                color: black;
+            }
+      </style>
         <title>InTouch</title>
     </h:head>
     <h:body>
         <!-- Personal info  -->
         <div class="personalInfo" align="center">
-            Welcome: "username"
+            <h1>Welcome: "username"</h1>
         </div>
         
         <!-- Table for the wall on the main page (public/private) -->
@@ -108,12 +255,12 @@
                                 <a href="#">GroupName</a>
                             </legend>
                             <h:form>
-                                    <input type="hidden" name="acceptGroupId" value="id">
+                                    <input type="hidden" name="acceptGroupId" value="id"/>
                                     <input type="hidden" name="pageURL" value="url"/>
                                     <h:commandButton value="aceptar"/>
                             </h:form>
                             <h:form>
-                                    <input type="hidden" name="cancelGroupId" value="id">
+                                    <input type="hidden" name="cancelGroupId" value="id"/>
                                     <input type="hidden" name="pageURL" value="url"/>
                                     <h:commandButton value="rechazar"/>
                             </h:form>
@@ -211,11 +358,11 @@
         function openChat(chatName, place) {
             let i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
+            for (i = 0; i &lt; tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
             tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablinks.length; i++) {
+            for (i = 0; i &lt; tablinks.length; i++) {
                 tablinks[i].style.backgroundColor = "";
             }
             document.getElementById(chatName).style.display = "block";
