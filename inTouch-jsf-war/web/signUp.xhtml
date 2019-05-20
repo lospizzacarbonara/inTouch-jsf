@@ -9,18 +9,42 @@ and open the template in the editor.
     xmlns:h="http://xmlns.jcp.org/jsf/html">
     <head>
         <title>SignUp inTouch</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="resources/css/inTouch.css"/>
+        <link rel="stylesheet" href="resources/css/perfil.css"/>
+        <link rel="stylesheet" href="resources/css/navmenu.css"/>
+        <style type="text/css">
+            div.littleText {
+                font-size: 12px;
+            }
+        </style>
     </head>
     <body>
         <h1 align="center">¡Registrate aqui!</h1>
         <br/>
         <h2 align="center">Introduzca los datos de usuario:</h2>
         <h:form>
-            <p align="center">
+             <div align="center">
+                 Nombre: <h:inputText value="#{signUpBean.name}" />  <br/>
+                <br/>
+                Apellidos: <h:inputText value="#{signUpBean.surname}" />  <br/>
+                <br/>
+                Email: <h:inputText value="#{signUpBean.email}" />  <br/>
+                <br/>
+                 <div class="littleText">
+                  * aaaa/mm/dd *
+                 </div>
+                Fecha de Nacimiento: <h:inputText value="#{signUpBean.fecha}" />  <br/>
+                <br/>
+                <br/>
                 Nombre de usuario: <h:inputText value="#{signUpBean.userName}" />  <br/>
+                <br/>
+                 <div class="littleText">
+                  *Este nombre de usuario no puede ser cambiado mas adelante
+                 </div>
                 Contraseña: <h:inputSecret value="#{signUpBean.password}" /> <br/>
+                <br/>
                 <h:commandButton value="Registrarse" action="#{signUpBean.doSignUp()}"/> <br/>
-            </p>
+            </div>
         </h:form>
     </body>
 </html>

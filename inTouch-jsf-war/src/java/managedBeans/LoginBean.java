@@ -32,9 +32,7 @@ public class LoginBean implements Serializable {
      * Creates a new instance of LoginBean
      */
     public LoginBean() {
-        userName="";
-        password="";
-        login= false;
+        login= true;
     }
 
     public User getUser() {
@@ -69,6 +67,7 @@ public class LoginBean implements Serializable {
             user=usuario;
             return "wall";
         }
+        login=false;
         return "index";
     }
     
