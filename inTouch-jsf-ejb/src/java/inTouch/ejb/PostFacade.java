@@ -5,12 +5,9 @@
  */
 package inTouch.ejb;
 
-import inTouch.entity.Membership;
 import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -44,12 +41,14 @@ public class PostFacade extends AbstractFacade<Post> {
     public List<Post> getPublicPost(){
         List<Post> list;
         Query q;
-        q = this.em.createQuery("select p from Post p where p.private1 = false order by p.publishedDate DESC");
+        q = this.em.createNamedQuery("Post.findByPrivate1")
+                .setParameter("private", false);
         
         list = q.getResultList();
         return list;
     }
-        public List<Post> getGroupPost(SocialGroup group){
+    
+    public List<Post> getGroupPost(SocialGroup group){
         List<Post> list;
         Query q;
         //q = this.em.createQuery("select p from Post p where socialGroup = 1");
