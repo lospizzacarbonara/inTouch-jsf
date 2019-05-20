@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <head>
+        <title>SignUp inTouch</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <h1 align="center">¡Registrate aqui!</h1>
+        <br/>
+        <h2 align="center">Introduzca los datos de usuario:</h2>
+        <h:form>
+            <p align="center">
+                Nombre de usuario: <h:inputText value="#{signUpBean.userName}" />  <br/>
+                Contraseña: <h:inputSecret value="#{signUpBean.password}" /> <br/>
+                <h:commandButton value="Registrarse" action="#{signUpBean.doSignUp()}"/> <br/>
+            </p>
+        </h:form>
+    </body>
+</html>
