@@ -37,7 +37,7 @@ public class PostFacade extends AbstractFacade<Post> {
         super(Post.class);
     }
     
-    //Return a list of all the public posts
+    //Return a list with all the public posts
     public List<Post> getPublicPost(){
         List<Post> list;
         Query q;
