@@ -5,21 +5,73 @@
  */
 package managedBeans;
 
+import inTouch.ejb.PostFacade;
+import inTouch.entity.Post;
+import inTouch.entity.User;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 /**
  *
  * @author Nellogy
  */
 @Named(value = "postBean")
-@Dependent
+@RequestScoped
 public class PostBean {
+
+    @EJB
+    private PostFacade postFacade;
+    
+    @Inject
+    private LoginBean loginBean;
+    
+    protected User user;
+    protected List<Post> publicPostList, privatePostList;
 
     /**
      * Creates a new instance of PostBean
      */
-    public PostBean() {
+    public PostBean() {}
+    
+    @PostConstruct
+    public void setUp() {
+        user = loginBean.getUser();
+        publicPostList = postFacade.getPublicPost();
+        privatePostList = postFacade.getPrivatePost(user);
+    }
+    
+    /*
+    * --- SETTERS ---
+    */
+    public void setUser(User user) {
+        this.user = user;
+    }
+         
+    public void setPublicPostList(List<Post> publicPostList) {
+        this.publicPostList = publicPostList;
+    }   
+
+    public void setPrivatePostList(List<Post> privatePostList) {
+        this.privatePostList = privatePostList;
+    }
+    
+    /*
+    * --- SETTERS ---
+    */
+    public User getUser() {
+        return user;
+    }
+    
+    public List<Post> getPublicPostList() {
+        return publicPostList;
+    }
+
+     public List<Post> getPrivatePostList() {
+        return privatePostList;
     }
     
 }

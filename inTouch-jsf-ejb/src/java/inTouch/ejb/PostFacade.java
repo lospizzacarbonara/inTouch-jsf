@@ -41,7 +41,7 @@ public class PostFacade extends AbstractFacade<Post> {
     public List<Post> getPublicPost(){
         List<Post> list;
         Query q;
-        q = this.em.createNamedQuery("Post.findByPrivate1")
+        q = this.em.createNamedQuery("Post.findByPrivate")
                 .setParameter("private", false);
         
         list = q.getResultList();

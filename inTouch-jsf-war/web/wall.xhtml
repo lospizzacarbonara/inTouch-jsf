@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"/>
         <link rel="stylesheet" href="resources/css/inTouch.css"/>
@@ -200,32 +201,37 @@
 
                 <td class="content">
                     <div id="Public" class="tabcontent">
-                        <div class="box">
-                            <h3 align="center">                
-                                <a href="#">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                    Username</a>
-                            </h3>
-                            <p>Message</p>
-                        </div>
+                        <ui:repeat var="post" value="#{postBean.publicPostList}">
+                            <div class="box">
+                                <h3 align="center">                
+                                    <a href="#">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        #{post.getAuthor().getUsername()}
+                                    </a>
+                                </h3>
+                                <p>#{post.getBody()}</p>
+                            </div>
+                        </ui:repeat>
                     </div>
 
                     <div id="Private" class="tabcontent">
-                        <div class="box">
-                            <h3 align="center">
-                                <a href="#">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                    Username
-                                </a>
+                        <ui:repeat var="post" value="#{postBean.privatePostList}">
+                            <div class="box">
+                                <h3 align="center">
+                                    <a href="#">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        #{post.getAuthor().getUsername()}
+                                    </a>
                                 
-                                &nbsp;-&nbsp;
+                                    &nbsp;-&nbsp;
                                 
-                                <a href="#">
-                                    groupName (if group)
-                                </a>
-                            </h3>
-                            <p>Message</p>
-                        </div>
+                                    <a href="#">
+                                        groupName (if group)
+                                    </a>
+                                </h3>
+                                <p>#{post.getBody()}</p>
+                            </div>
+                        </ui:repeat>
                     </div>
                 </td>
 
