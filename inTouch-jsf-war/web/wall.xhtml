@@ -223,11 +223,11 @@
                                         #{post.getAuthor().getUsername()}
                                     </a>
                                 
-                                    -
-                                
-                                    <a href="#">
-                                        groupName (if group)
-                                    </a>
+                                    <h:outputText 
+                                        value="- &lt;a href=&quot;#&quot;&gt;#{post.getSocialGroup().getName()}&lt;/a&gt;"
+                                        rendered="#{post.getSocialGroup() != null}"
+                                        escape="false">
+                                    </h:outputText>
                                 </h3>
                                 <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false" /></p>
                             </div>
@@ -237,7 +237,7 @@
 
                 <td class="inviteList">
                     <br/>
-                    <h3>amistad</h3>
+                    <h3>Amistad</h3>
                     <hr/> 
                         <fieldset class="thirdSize">
                             <legend class="center-legend">
@@ -290,10 +290,10 @@
                 <span class="close">&times;</span>
                 <div align="center"><p>Mensaje:</p></div>
                 <h:form id="postForm">
-                    <h:inputTextarea rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
-                    public <h:selectBooleanCheckbox  value="" /><br/>
-                    <!-- date and author on servlet -->
-                    <h:commandButton value="submit"/>
+                    <h:inputTextarea value="#{createPostBean.body}" rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
+                    public <h:selectBooleanCheckbox  value="#{createPostBean.isPublic}" /><br/>
+                    <!-- date and author on Bean -->
+                    <h:commandButton value="Post it!" action="#{createPostBean.doPostCreation()}"/>
                 </h:form>
             </div>
         </div>
@@ -308,7 +308,6 @@
                 <br/><br/><br/>
                 <div align="center"><p>groupDesc</p></div>
                 <h:inputTextarea rows="5" cols="50"></h:inputTextarea><br/><br/>
-                <!-- date and author on servlet -->
                 <h:commandButton value="submitGroup"/>
             </h:form>
         </div>

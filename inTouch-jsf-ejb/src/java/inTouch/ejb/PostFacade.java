@@ -52,7 +52,7 @@ public class PostFacade extends AbstractFacade<Post> {
         List<Post> list;
         Query q;
         //q = this.em.createQuery("select p from Post p where socialGroup = 1");
-        q = this.em.createQuery("select p from Post p where p.socialGroup = :sg order by p.publishedDate DESC")
+        q = this.em.createQuery("select p from Post p where p.socialGroup = :sg order by p.publishedDate DESC, p.id DESC")
         .setParameter("sg", group);
         list = q.getResultList();
         return list;
