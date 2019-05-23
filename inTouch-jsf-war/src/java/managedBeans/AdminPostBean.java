@@ -63,6 +63,13 @@ public class AdminPostBean {
     
     public void doPostDeletion(Post post){
         postFacade.remove(post);
+        
+        //recharge posts List
+        if(post.getPrivate1()){
+            postBean.setPrivatePostList(postFacade.getPrivatePost(user));
+        } else {
+            postBean.setPublicPostList(postFacade.getPublicPost());
+        }
     }
     
     /*
