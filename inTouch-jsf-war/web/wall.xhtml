@@ -158,7 +158,7 @@
     <h:body>
         <!-- Personal info  -->
         <div class="personalInfo" align="center">
-            <h1>Welcome: "username"</h1>
+            <h1>Welcome: #{loginBean.userName}</h1>
         </div>
         
         <!-- Table for the wall on the main page (public/private) -->
@@ -290,10 +290,10 @@
                 <span class="close">&times;</span>
                 <div align="center"><p>Mensaje:</p></div>
                 <h:form id="postForm">
-                    <h:inputTextarea value="#{createPostBean.body}" rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
-                    public <h:selectBooleanCheckbox  value="#{createPostBean.isPublic}" /><br/>
+                    <h:inputTextarea value="#{adminPostBean.body}" rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
+                    public <h:selectBooleanCheckbox  value="#{adminPostBean.isPublic}" /><br/>
                     <!-- date and author on Bean -->
-                    <h:commandButton value="Post it!" action="#{createPostBean.doPostCreation()}"/>
+                    <h:commandButton value="Post it!" action="#{adminPostBean.doPostCreation()}"/>
                 </h:form>
             </div>
         </div>

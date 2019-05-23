@@ -19,9 +19,9 @@ import javax.inject.Inject;
  *
  * @author Nellogy
  */
-@Named(value = "createPostBean")
+@Named(value = "adminPostBean")
 @RequestScoped
-public class CreatePostBean {
+public class AdminPostBean {
 
     @EJB
     private PostFacade postFacade;
@@ -39,7 +39,7 @@ public class CreatePostBean {
     /**
      * Creates a new instance of createPostBean
      */
-    public CreatePostBean() {}
+    public AdminPostBean() {}
     
     @PostConstruct
     public void setUp(){
@@ -59,6 +59,10 @@ public class CreatePostBean {
         } else {
             postBean.setPrivatePostList(postFacade.getPrivatePost(user));
         }
+    }
+    
+    public void doPostDeletion(Post post){
+        postFacade.remove(post);
     }
     
     /*
