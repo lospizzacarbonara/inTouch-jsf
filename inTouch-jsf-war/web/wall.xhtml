@@ -209,7 +209,7 @@
                                         #{post.getAuthor().getUsername()}
                                     </a>
                                 </h3>
-                                <p>#{post.getBody()}</p>
+                                <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false"/></p>
                             </div>
                         </ui:repeat>
                     </div>
@@ -223,13 +223,13 @@
                                         #{post.getAuthor().getUsername()}
                                     </a>
                                 
-                                    &nbsp;-&nbsp;
+                                    -
                                 
                                     <a href="#">
                                         groupName (if group)
                                     </a>
                                 </h3>
-                                <p>#{post.getBody()}</p>
+                                <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false" /></p>
                             </div>
                         </ui:repeat>
                     </div>

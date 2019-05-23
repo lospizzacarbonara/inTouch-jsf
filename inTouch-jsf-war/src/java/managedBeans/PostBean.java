@@ -14,6 +14,7 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import markdownj.Markdown;
 
 /**
  *
@@ -42,6 +43,13 @@ public class PostBean {
         user = loginBean.getUser();
         publicPostList = postFacade.getPublicPost();
         privatePostList = postFacade.getPrivatePost(user);
+    }
+    
+    public String parsePost(String body) {
+        if (body != null)
+            return Markdown.toHtml(body);
+        else
+            return null;
     }
     
     /*
