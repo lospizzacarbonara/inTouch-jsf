@@ -220,7 +220,7 @@
                         <ui:repeat var="post" value="#{postBean.publicPostList}">
                             <div class="box">
                                 <span class="deletePost" style="cursor: pointer; margin-right: -8px; float: right; color: red;">
-                                    <h:form>
+                                    <h:form rendered="#{post.getAuthor().equals(loginBean.user)}">
                                         <h:commandButton class="noStyleButton" value="&times;" action="#{adminPostBean.doPostDeletion(post)}" />
                                     </h:form>
                                 </span>
@@ -239,7 +239,7 @@
                         <ui:repeat var="post" value="#{postBean.privatePostList}">
                             <div class="box">
                                 <span class="deletePost" style="cursor: pointer; margin-right: -8px; float: right; color: red;">
-                                    <h:form>
+                                    <h:form rendered="#{post.getAuthor().equals(loginBean.user)}">
                                         <h:commandButton class="noStyleButton" value="&times;" action="#{adminPostBean.doPostDeletion(post)}" />
                                     </h:form>
                                 </span>

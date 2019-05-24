@@ -72,7 +72,7 @@ public class LoginBean implements Serializable {
     }
     
     public String doSignUp(){
-    return "signUp";
+        return "signUp";
     }
     
 }
