@@ -26,16 +26,16 @@ and open the template in the editor.
             </h:form>
         </h:panelGroup>
         <!-- Friends -->
-        <h:panelGroup rendered="#{!searchBean.userList.isEmpty()}" style="align-self: center;">
+        <h:panelGroup rendered="#{!searchBean.userList.isEmpty()}" style="text-align:center">
             <fieldset>
                 <legend>Users</legend> 
                 <ui:repeat var="user" value="#{searchBean.userList}">
                     <h:form>
                         <fieldset>
                             <legend class="center-legend">
-                                    <a href="#">#{user.getUsername()}</a>
+                                    <h:link outcome="search" value="#{user.getUsername()}"></h:link>
 
-                                    <input type="submit" value="#{searchBean.getFriendButtonText(user)}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
+                                    <h:commandButton type="submit" value="#{searchBean.getFriendButtonText(user)}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
                             </legend>
                             <h:outputText value="#{searchBean.getPost(user)}" escape="false"></h:outputText>
                         </fieldset>
@@ -47,10 +47,35 @@ and open the template in the editor.
         <h:panelGroup rendered="#{searchBean.userList.isEmpty()}">
             <fieldset>
                 <legend>Users</legend>
-                <p>No user found.</p>
+                <p>No users found.</p>
             </fieldset>
         </h:panelGroup>
+        
+        
         <!-- Groups -->
+        <h:panelGroup rendered="#{!searchBean.groupList.isEmpty()}" style="text-align:center">
+            <fieldset>
+                <legend>Groups</legend> 
+                <ui:repeat var="group" value="#{searchBean.groupList}">
+                    <h:form>
+                        <fieldset>
+                            <legend class="center-legend">
+                                    <h:link outcome="search" value="#{group.getName()}"></h:link>
 
+                                    <h:commandButton type="submit" value="#{searchBean.getGroupButtonText(group)}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
+                            </legend>
+                            <h:outputText value="#{searchBean.getPostGroup(group)}" escape="false"></h:outputText>
+                        </fieldset>
+                    </h:form>
+                </ui:repeat>
+            </fieldset>
+        </h:panelGroup>
+        <!-- No Groups -->
+        <h:panelGroup rendered="#{searchBean.groupList.isEmpty()}">
+            <fieldset>
+                <legend>Groups</legend>
+                <p>No groups found.</p>
+            </fieldset>
+        </h:panelGroup>
     </h:body>
 </html>

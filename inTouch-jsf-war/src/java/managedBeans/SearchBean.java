@@ -5,8 +5,10 @@
  */
 package managedBeans;
 
+import inTouch.ejb.SocialGroupFacade;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.Post;
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -30,6 +32,8 @@ import markdownj.Markdown;
 public class SearchBean {
     @EJB
     UserFacade userFacade;
+    @EJB
+    SocialGroupFacade groupFacade;
 
     @Inject
     LoginBean loginBean;
@@ -37,7 +41,10 @@ public class SearchBean {
     protected String searchText;
     protected List<User> userList;
     protected Map<User, Object[]> userData;
-    protected User user;
+    protected User loggedUser;
+    protected List<SocialGroup> groupList;
+    protected Map<SocialGroup, Object[]> groupData;
+    
     /**
      * Creates a new instance of searchBean
      */
@@ -56,7 +63,7 @@ public class SearchBean {
         return userList;
     }
 
-    public void setUserSet(List<User> userList) {
+    public void setUserList(List<User> userList) {
         this.userList = userList;
     }
 
@@ -68,12 +75,28 @@ public class SearchBean {
         this.userData = userData;
     }
 
-    public User getUser() {
-        return user;
+    public User getLoggedUser() {
+        return loggedUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setLoggedUser(User user) {
+        this.loggedUser = user;
+    }
+
+    public List<SocialGroup> getGroupList() {
+        return groupList;
+    }
+
+    public void setGroupList(List<SocialGroup> groupList) {
+        this.groupList = groupList;
+    }
+
+    public Map<SocialGroup, Object[]> getGroupData() {
+        return groupData;
+    }
+
+    public void setGroupData(Map<SocialGroup, Object[]> groupData) {
+        this.groupData = groupData;
     }
     
     public String search() {
@@ -84,15 +107,14 @@ public class SearchBean {
     
     @PostConstruct
     public void init() {
-        user = loginBean.getUser();
+        loggedUser = loginBean.getUser();
         
-        List<User> userList = null;
+        List<User> findUser = this.userFacade.findByUsername(searchText);
         userData = new TreeMap<User, Object[]>();
-        List<User> friends = this.userFacade.findFriends(user);
-        List<User> pendingFriends = this.userFacade.findPendingFriends(user);
+        List<User> friends = this.userFacade.findFriends(loggedUser);
+        List<User> pendingFriends = this.userFacade.findPendingFriends(loggedUser);
 
-        userList = this.userFacade.findByUsername(searchText);
-        for (User u: userList) {
+        for (User u: findUser) {
             Object[] data = new Object[2];
 
             //Posts
@@ -115,34 +137,85 @@ public class SearchBean {
         }
         
         this.userList = new ArrayList<User>(userData.keySet());
+        
+        List<SocialGroup> findGroup = this.groupFacade.findByName(searchText);
+        groupData = new TreeMap<SocialGroup, Object[]>();
+        List<SocialGroup> groups = this.userFacade.findSocialGroups(loggedUser);
+        List<SocialGroup> pendingGroups = this.userFacade.findPendingMemberships(loggedUser);
+        
+        for (SocialGroup g: findGroup) {
+            Object[] data = new Object[2];
+
+            //Posts
+            Iterator<Post> postIt = g.getPostCollection().iterator(); 
+            if (postIt.hasNext())
+                data[0] = postIt.next();
+            else
+                data[0] = null;
+
+            //Membership
+            if (groups.contains(g))
+                data[1] = SocialGroup.membershipStatus.member;
+            else if (pendingGroups.contains(g))
+                data[1] = SocialGroup.membershipStatus.pending;
+            else
+                data[1] = SocialGroup.membershipStatus.unrelated;
+
+
+            groupData.put(g, data);
+        }
+        
+        this.groupList = new ArrayList<SocialGroup>(groupData.keySet());
     }
     
     public String getFriendButtonText(User user) {
          User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
          String res;
          
-        if (friendStatus == User.friendStatus.friends) { 
-            res = "alreadyFriend";
-        } else if (friendStatus == User.friendStatus.pending) {
-            res = "petitionSent";
-        } else {
-            res = "addFriend";
+        switch (friendStatus) {
+            case friends:
+                res = "Already Friend";
+                break;
+            case pending:
+                res = "Petition Sent";
+                break;
+            default:
+                res = "Add Friend";
+                break;
+        }
+        
+        return res;
+    }
+    
+    public String getGroupButtonText(SocialGroup group) {
+        SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
+        String res;
+         
+        switch (memberStatus) {
+            case member:
+                res = "Already Member";
+                break;
+            case pending:
+                res = "Petition Sent";
+                break;
+            default:
+                res = "Join Group";
+                break;
         }
         
         return res;
     }
             
-    public String getFriendButtonDisabled(User user) {
-         User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
-         String res;
-         
-        if (friendStatus == User.friendStatus.unrelated) { 
-            res = "";
-        } else {
-            res = "disabled";
-        }
-        
-        return res;
+    public boolean getFriendButtonDisabled(User user) {
+        User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
+       
+        return friendStatus != User.friendStatus.unrelated;
+    }
+    
+    public boolean getGroupButtonDisabled(SocialGroup group) {
+        SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
+       
+        return memberStatus != SocialGroup.membershipStatus.unrelated;
     }
     
     public String getPost(User user) {
@@ -151,5 +224,13 @@ public class SearchBean {
             return Markdown.toHtml(post.getBody());
         else
             return user.getUsername() + " has not posted yet";
+    }
+    
+    public String getPostGroup(SocialGroup group) {
+        Post post = (Post)groupData.get(group)[0];
+        if (post != null)
+            return Markdown.toHtml(post.getBody());
+        else
+            return group.getName() + " has not posted yet";
     }
 }
