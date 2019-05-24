@@ -168,6 +168,10 @@
         <title>InTouch</title>
     </h:head>
     <h:body>
+        <ui:insert name="header" >
+            <ui:include src="navBar.xhtml"/>
+	</ui:insert>
+        
         <!-- Personal info  -->
         <div class="personalInfo" align="center">
             <h1>Welcome: #{loginBean.userName}</h1>
