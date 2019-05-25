@@ -209,9 +209,9 @@
                     <ul>
                         <ui:repeat var="sg" value="#{adminGroupBean.groupList}">
                             <li><a href="#">#{sg.getName()}</a></li>
+                            <br/>
                         </ui:repeat>
                     </ul>
-                    <br/>
                     <!-- createGroup button -->
                     <br/>
                     <button id="createGroupButton">Crear grupo</button>
@@ -267,9 +267,10 @@
                     <br/>
                     <h3>Amistad</h3>
                     <hr/> 
+                    <ui:repeat var="pendingFriend" value="#{adminFriendInvitesBean.friendInvites}" rendered="#{!adminFriendInvitesBean.isEmpty()}">
                         <fieldset class="thirdSize">
                             <legend class="center-legend">
-                                <a href="#">username</a>
+                                <a href="#">#{pendingFriend.getUsername()}</a>
                             </legend>
                             <h:form>
                                     <input type="hidden" name="acceptUserId" value="id"/>
@@ -282,10 +283,11 @@
                                     <h:commandButton value="rechazar"/>
                             </h:form>
                         </fieldset>
-       
-                    <br/>
+                        <br/>
+                    </ui:repeat>
                     <h3>Grupos</h3>
                     <hr/>
+                    <ui:repeat var="pendingGroup" value="#{adminGroupInvitesBean.groupInvites}" rendered="#{!adminGroupInvitesBean.isEmpty()}">
                         <fieldset class="thirdSize">
                             <legend class="center-legend">
                                 <a href="#">GroupName</a>
@@ -301,8 +303,9 @@
                                     <h:commandButton value="rechazar"/>
                             </h:form>
                         </fieldset>
-                    <br/>
-                </td>
+                        <br/>
+                    </ui:repeat>
+                    </td>
             </tr>
         </table>
         
