@@ -23,7 +23,7 @@ and open the template in the editor.
                 <fieldset>
                      <legend>Search for users and groups</legend>
                      Search: <h:inputText value="#{searchBean.searchText}" /><br/>
-                     <h:commandButton value="Guardar" action="#{searchBean.search()}"/>
+                     <h:commandButton value="Search" action="#{searchBean.search()}"/>
                  </fieldset>
             </h:form>
         </h:panelGroup>
@@ -32,16 +32,17 @@ and open the template in the editor.
             <fieldset>
                 <legend>Users</legend> 
                 <ui:repeat var="user" value="#{searchBean.userList}">
-                    <h:form>
-                        <fieldset>
-                            <legend class="center-legend">
+                    <fieldset>
+                        <legend class="center-legend">
+                                <h:form>
                                     <h:link outcome="search" value="#{user.getUsername()}"></h:link>
+                                    <h:inputHidden value="#{searchBean.toBeAddedFriend}" />
+                                    <h:commandButton action="#{searchBean.addFriend()}" value="#{searchBean.getFriendButtonText(user)}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
+                                </h:form>
+                        </legend>
+                        <h:outputText value="#{searchBean.getPost(user)}" escape="false"></h:outputText>
+                    </fieldset>
 
-                                    <h:commandButton type="submit" value="#{searchBean.getFriendButtonText(user)}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
-                            </legend>
-                            <h:outputText value="#{searchBean.getPost(user)}" escape="false"></h:outputText>
-                        </fieldset>
-                    </h:form>
                 </ui:repeat>
             </fieldset>
         </h:panelGroup>
@@ -64,7 +65,7 @@ and open the template in the editor.
                             <legend class="center-legend">
                                     <h:link outcome="search" value="#{group.getName()}"></h:link>
 
-                                    <h:commandButton type="submit" value="#{searchBean.getGroupButtonText(group)}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
+                                    <h:commandButton action="#{searchBean.joinGroup(group)}" value="#{searchBean.getGroupButtonText(group)}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
                             </legend>
                             <h:outputText value="#{searchBean.getPostGroup(group)}" escape="false"></h:outputText>
                         </fieldset>

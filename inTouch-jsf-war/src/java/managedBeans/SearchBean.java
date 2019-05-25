@@ -5,8 +5,12 @@
  */
 package managedBeans;
 
+import inTouch.ejb.PendingFriendshipFacade;
+import inTouch.ejb.PendingMembershipFacade;
 import inTouch.ejb.SocialGroupFacade;
 import inTouch.ejb.UserFacade;
+import inTouch.entity.PendingFriendship;
+import inTouch.entity.PendingMembership;
 import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
@@ -14,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -34,6 +37,10 @@ public class SearchBean {
     UserFacade userFacade;
     @EJB
     SocialGroupFacade groupFacade;
+    @EJB
+    PendingFriendshipFacade pendingFriendshipFacade;
+    @EJB
+    private PendingMembershipFacade pendingMembershipFacade;
 
     @Inject
     LoginBean loginBean;
@@ -44,6 +51,8 @@ public class SearchBean {
     protected User loggedUser;
     protected List<SocialGroup> groupList;
     protected Map<SocialGroup, Object[]> groupData;
+    
+    protected User toBeAddedFriend;
     
     /**
      * Creates a new instance of searchBean
@@ -97,6 +106,14 @@ public class SearchBean {
 
     public void setGroupData(Map<SocialGroup, Object[]> groupData) {
         this.groupData = groupData;
+    }
+
+    public User getToBeAddedFriend() {
+        return toBeAddedFriend;
+    }
+
+    public void setToBeAddedFriend(User toBeAddedFriend) {
+        this.toBeAddedFriend = toBeAddedFriend;
     }
     
     public String search() {
@@ -232,5 +249,25 @@ public class SearchBean {
             return Markdown.toHtml(post.getBody());
         else
             return group.getName() + " has not posted yet";
+    }
+    
+    //Not being called
+    public String addFriend() {
+        PendingFriendship pending = new PendingFriendship(0);
+        pending.setSender(loggedUser);
+        pending.setReceiver(toBeAddedFriend);
+        this.pendingFriendshipFacade.create(pending);
+        
+        return "search";
+    }
+    
+    public String joinGroup(SocialGroup group) {
+        PendingMembership pending = new PendingMembership(0);
+        pending.setInvitation(false);
+        pending.setUser(loggedUser);
+        pending.setSocialGroup(group);
+        this.pendingMembershipFacade.create(pending);
+        
+        return "search";
     }
 }
