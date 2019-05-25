@@ -73,10 +73,14 @@ public class AdminGroupBean {
     }
     
     public void doGroupDeletion(SocialGroup group){
-        socialGroupFacade.remove(group);
         
-        //reload group List
-        groupList = userFacade.findSocialGroups(user);
+        if(user.equals(socialGroupFacade.findGroupAdmin(group)))
+        {  
+            socialGroupFacade.remove(group);
+        
+            //reload group List
+            groupList = userFacade.findSocialGroups(user);
+        }
     }
     
     /*

@@ -52,7 +52,8 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
         list = q.getResultList();
         return list;   
     }
-        public List<User> getPendingMembers(SocialGroup group){
+    
+    public List<User> getPendingMembers(SocialGroup group){
         List<User> list;
         Query q;
         //q = this.em.createQuery("select p from Post p where socialGroup = 1");
@@ -60,5 +61,13 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
         .setParameter("sg", group);
         list = q.getResultList();
         return list;   
+    }
+    
+    public User findGroupAdmin(SocialGroup sg){
+        Query q;
+        q = this.em.createNamedQuery("Membership.findGroupAdmin")
+                .setParameter("sg", sg);
+        
+        return (User)q.getSingleResult();
     }
 }
