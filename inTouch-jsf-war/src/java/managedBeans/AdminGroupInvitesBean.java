@@ -31,6 +31,7 @@ public class AdminGroupInvitesBean {
     
     protected User user;
     protected List<SocialGroup> groupInvites;
+    protected boolean isEmpty;
     
     /**
      * Creates a new instance of AdminGroupInvitesBean
@@ -43,10 +44,7 @@ public class AdminGroupInvitesBean {
     public void setUp(){
         user = loginBean.getUser();
         groupInvites = userFacade.findPendingInvitationMemberships(user);
-    }
-
-    public boolean isEmpty() {
-        return groupInvites.isEmpty();
+        isEmpty = groupInvites.isEmpty();
     }
     
     /*
@@ -69,6 +67,10 @@ public class AdminGroupInvitesBean {
     
     public List<SocialGroup> getGroupInvites() {
         return groupInvites;
+    }
+    
+    public boolean getIsEmpty() {
+        return isEmpty;
     }
     
 }

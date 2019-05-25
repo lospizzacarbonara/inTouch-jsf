@@ -264,47 +264,51 @@
                 </td>
 
                 <td class="inviteList">
-                    <br/>
-                    <h3>Amistad</h3>
-                    <hr/> 
-                    <ui:repeat var="pendingFriend" value="#{adminFriendInvitesBean.friendInvites}" rendered="#{!adminFriendInvitesBean.isEmpty()}">
-                        <fieldset class="thirdSize">
-                            <legend class="center-legend">
-                                <a href="#">#{pendingFriend.getUsername()}</a>
-                            </legend>
-                            <h:form>
-                                    <input type="hidden" name="acceptUserId" value="id"/>
-                                    <input type="hidden" name="pageURL" value="url"/>
-                                    <h:commandButton value="aceptar"/>
-                            </h:form>
-                            <h:form>
-                                    <input type="hidden" name="cancelUserId" value="id"/>
-                                    <input type="hidden" name="pageURL" value="url"/>
-                                    <h:commandButton value="rechazar"/>
-                            </h:form>
-                        </fieldset>
+                    <h:panelGroup layout="block" rendered="#{adminFriendInvitesBean.isEmpty == false}">
                         <br/>
-                    </ui:repeat>
-                    <h3>Grupos</h3>
-                    <hr/>
-                    <ui:repeat var="pendingGroup" value="#{adminGroupInvitesBean.groupInvites}" rendered="#{!adminGroupInvitesBean.isEmpty()}">
-                        <fieldset class="thirdSize">
-                            <legend class="center-legend">
-                                <a href="#">GroupName</a>
-                            </legend>
-                            <h:form>
-                                    <input type="hidden" name="acceptGroupId" value="id"/>
-                                    <input type="hidden" name="pageURL" value="url"/>
-                                    <h:commandButton value="aceptar"/>
-                            </h:form>
-                            <h:form>
-                                    <input type="hidden" name="cancelGroupId" value="id"/>
-                                    <input type="hidden" name="pageURL" value="url"/>
-                                    <h:commandButton value="rechazar"/>
-                            </h:form>
-                        </fieldset>
-                        <br/>
-                    </ui:repeat>
+                        <h3>Amistad</h3>
+                        <hr/> 
+                        <ui:repeat var="pendingFriend" value="#{adminFriendInvitesBean.friendInvites}">
+                            <fieldset class="thirdSize">
+                                <legend class="center-legend">
+                                    <a href="#">#{pendingFriend.getUsername()}</a>
+                                </legend>
+                                <h:form>
+                                        <input type="hidden" name="acceptUserId" value="id"/>
+                                        <input type="hidden" name="pageURL" value="url"/>
+                                        <h:commandButton value="aceptar"/>
+                                </h:form>
+                                <h:form>
+                                        <input type="hidden" name="cancelUserId" value="id"/>
+                                        <input type="hidden" name="pageURL" value="url"/>
+                                        <h:commandButton value="rechazar"/>
+                                </h:form>
+                            </fieldset>
+                            <br/>
+                        </ui:repeat>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{adminGroupInvitesBean.isEmpty == false}">
+                        <h3>Grupos</h3>
+                        <hr/>
+                        <ui:repeat var="pendingGroup" value="#{adminGroupInvitesBean.groupInvites}">
+                            <fieldset class="thirdSize">
+                                <legend class="center-legend">
+                                    <a href="#">#{pendingGroup.getName()}</a>
+                                </legend>
+                                <h:form>
+                                        <input type="hidden" name="acceptGroupId" value="id"/>
+                                        <input type="hidden" name="pageURL" value="url"/>
+                                        <h:commandButton value="aceptar"/>
+                                </h:form>
+                                <h:form>
+                                        <input type="hidden" name="cancelGroupId" value="id"/>
+                                        <input type="hidden" name="pageURL" value="url"/>
+                                        <h:commandButton value="rechazar"/>
+                                </h:form>
+                            </fieldset>
+                            <br/>
+                        </ui:repeat>
+                    </h:panelGroup>
                     </td>
             </tr>
         </table>

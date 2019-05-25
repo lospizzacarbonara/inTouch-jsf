@@ -30,6 +30,8 @@ public class AdminFriendInvitesBean {
     
     protected User user;
     protected List<User> friendInvites;
+    protected boolean isEmpty;
+    
     /**
      * Creates a new instance of AdminFriendInvitesBean
      */
@@ -40,12 +42,9 @@ public class AdminFriendInvitesBean {
     public void setUp(){
         user = loginBean.getUser();
         friendInvites = userFacade.findPendingToAcceptFriends(user);
+        isEmpty = friendInvites.isEmpty();
     }
     
-    public boolean isEmpty() {
-        return friendInvites.isEmpty();
-    }
-
     /*
     * --- SETTERS ---
     */ 
@@ -66,5 +65,9 @@ public class AdminFriendInvitesBean {
     
     public List<User> getFriendInvites() {
         return friendInvites;
+    }
+    
+    public boolean getIsEmpty() {
+        return isEmpty;
     }
 }
