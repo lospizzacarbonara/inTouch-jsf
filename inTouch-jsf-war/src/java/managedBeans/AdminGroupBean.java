@@ -43,6 +43,7 @@ public class AdminGroupBean {
     protected String groupName;
     protected String groupDesc;
     protected List<SocialGroup> groupList;
+
     /**
      * Creates a new instance of AdminGroupBean
      */
@@ -93,6 +94,10 @@ public class AdminGroupBean {
         this.groupDesc = groupDesc;
     }
     
+    public void setGroupList(List<SocialGroup> groupList) {
+        this.groupList = groupList;
+    }
+    
     /*
     * --- GETTERS ---
     */    
@@ -106,5 +111,9 @@ public class AdminGroupBean {
 
     public String getGroupDesc() {
         return groupDesc;
+    }
+    
+    public List<SocialGroup> getGroupList() {
+        return groupList;
     }
 }

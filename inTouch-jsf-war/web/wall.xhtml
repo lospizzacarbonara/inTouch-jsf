@@ -207,7 +207,9 @@
                 <td class="groupList">
                     <br/>
                     <ul>
-                        <li><a href="#">Grupo</a></li>
+                        <ui:repeat var="sg" value="#{adminGroupBean.groupList}">
+                            <li><a href="#">#{sg.getName()}</a></li>
+                        </ui:repeat>
                     </ul>
                     <br/>
                     <!-- createGroup button -->
@@ -330,11 +332,11 @@
             <span class="close">&times;</span>
             <h:form id="createGroupForm">
                 <div align="center"><p>GroupName</p></div>
-                <h:inputText class="groupName" value="groupName" required="true" requiredMessage="El nombre es obligatorio"/>
+                <h:inputText class="groupName" value="#{adminGroupBean.groupName}" required="true" requiredMessage="El nombre es obligatorio"/>
                 <br/><br/><br/>
                 <div align="center"><p>groupDesc</p></div>
-                <h:inputTextarea rows="5" cols="50"></h:inputTextarea><br/><br/>
-                <h:commandButton value="submitGroup"/>
+                <h:inputTextarea value="#{adminGroupBean.groupDesc}" rows="5" cols="50"></h:inputTextarea><br/><br/>
+                <h:commandButton value="create Group" action="#{adminGroupBean.doGroupCreation()}"/>
             </h:form>
         </div>
     </div>
