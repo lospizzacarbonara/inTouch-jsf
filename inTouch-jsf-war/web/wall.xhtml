@@ -226,11 +226,11 @@
                                         <h:commandButton class="noStyleButton" value="&times;" action="#{adminPostBean.doPostDeletion(post)}" />
                                     </h:form>
                                 </span>
-                                <h3 align="center">                
-                                    <a href="#">
+                                <h3 align="center">  
+                                    <h:link outcome="#{userProfileBean.doProfileUser(user)}">
                                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                                         #{post.getAuthor().getUsername()}
-                                    </a>
+                                    </h:link>
                                 </h3>
                                 <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false"/></p>
                             </div>
@@ -246,10 +246,10 @@
                                     </h:form>
                                 </span>
                                 <h3 align="center">
-                                    <a href="#">
+                                    <h:link outcome="#{userProfileBean.doProfileUser(user)}">
                                         <i class="fa fa-user-circle" aria-hidden="true"></i>
                                         #{post.getAuthor().getUsername()}
-                                    </a>
+                                    </h:link>
                                 
                                     <h:outputText 
                                         value="- &lt;a href=&quot;#&quot;&gt;#{post.getSocialGroup().getName()}&lt;/a&gt;"
