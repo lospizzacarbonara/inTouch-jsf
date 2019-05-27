@@ -287,7 +287,7 @@
                             <br/>
                         </ui:repeat>
                     </h:panelGroup>
-                    <h:panelGroup layout="block" rendered="#{adminGroupInvitesBean.isEmpty == false}">
+                    <h:panelGroup layout="block" rendered="#{!adminGroupInvitesBean.isEmpty}">
                         <h3>Grupos</h3>
                         <hr/>
                         <ui:repeat var="pendingGroup" value="#{adminGroupInvitesBean.groupInvites}">
