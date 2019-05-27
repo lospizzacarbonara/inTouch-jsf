@@ -9,15 +9,17 @@
     <h:body>
         <ui:composition>
             <!-- Menú de navegación horizontal superior, utiliza la hoja de estilo menucss.css -->
+            <h:form id="navBar">
             <div id="menu">
                 <ul>
                     <li><a href="/inTouch-jsf-war/wall.jsf">Home</a></li>
-                    <li><a href="/inTouch-jsf-war/userProfile.jsf">Profile</a></li>
+                    <li><h:commandLink action="#{userProfileBean.doProfileUserLogin()}" value="Profile"/></li>
                     <li><a href="/inTouch-jsf-war/friends.jsf">Friends</a></li>
                     <li><a href="/inTouch-jsf-war/search.jsf">Search</a></li>
                     <li><a href="/inTouch-jsf-war/logout.jsf">Log out</a></li>
                 </ul>
             </div>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

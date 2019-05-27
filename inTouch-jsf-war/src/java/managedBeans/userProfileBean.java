@@ -12,7 +12,6 @@ import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.util.Collections;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -39,17 +38,13 @@ public class userProfileBean {
     protected LoginBean loginBean;
     
     
-    private User userLogin;
-    private User userOther;
+    private User user;
     private List<SocialGroup> userGroups;
     private boolean userFriend;
+    private boolean myProfile;
     
     public userProfileBean() {
     }
-
-    public User getUserLogin() {
-        return userLogin;
-    }    
 
     public List<SocialGroup> getUserGroups() {
         return userGroups;
@@ -57,22 +52,36 @@ public class userProfileBean {
 
     public boolean isUserFriend() {
         return userFriend;
-    }
+    } 
 
-    public User getUserOther() {
-        return userOther;
-    }    
-    
-    public void setUserOther(User userOther) {
-        this.userOther = userOther;
+    public User getUser() {
+        return user;
     }
     
-    @PostConstruct
-    public void init()
+    public boolean isMyProfile() {
+        return myProfile;
+    }
+    
+    public String doProfileUserLogin()
     {
-        this.userLogin = this.loginBean.user;
-        this.userOther = new User();
-        this.userFriend = false;
-        this.userGroups = Collections.emptyList();
-    }    
+        user = loginBean.getUser();
+        userFriend = false;
+        myProfile = true;
+        userGroups = Collections.emptyList();
+        return "userProfile";
+    }
+    
+    public String doProfileUser(User user)
+    {
+        User userLogin = loginBean.getUser();
+        myProfile = false;
+        userFriend = this.friendshipFacade.areFriends(userLogin, user);
+        userGroups = this.membershipFacade.findGroupsBetweenUsers(userLogin, user);
+        return "userProfile";
+    }
+    
+    public String doSaveProfileUser()
+    {
+        return "userProfile";
+    }
 }
