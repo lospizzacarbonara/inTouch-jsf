@@ -14,6 +14,7 @@ import inTouch.entity.PendingMembership;
 import inTouch.entity.Post;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import markdownj.Markdown;
 
@@ -31,8 +33,9 @@ import markdownj.Markdown;
  * @author jfaldanam
  */
 @Named(value = "searchBean")
-@RequestScoped
-public class SearchBean {
+@SessionScoped
+
+public class SearchBean implements Serializable{
     @EJB
     UserFacade userFacade;
     @EJB
@@ -251,13 +254,13 @@ public class SearchBean {
             return group.getName() + " has not posted yet";
     }
     
-    //Not being called
-    public String addFriend() {
+    public String addFriend(User user) {
         PendingFriendship pending = new PendingFriendship(0);
         pending.setSender(loggedUser);
-        pending.setReceiver(toBeAddedFriend);
+        pending.setReceiver(user);
         this.pendingFriendshipFacade.create(pending);
         
+        init();
         return "search";
     }
     
@@ -268,6 +271,7 @@ public class SearchBean {
         pending.setSocialGroup(group);
         this.pendingMembershipFacade.create(pending);
         
+        this.init();
         return "search";
     }
 }
