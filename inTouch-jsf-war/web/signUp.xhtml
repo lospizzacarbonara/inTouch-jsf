@@ -22,14 +22,13 @@ and open the template in the editor.
         <h1 align="center">¡Registrate aqui!</h1>
         <br/>
         <h2 align="center">Introduzca los datos de usuario:</h2>
-        <h:form>
+        <h:form id="signUp">
              <div align="center">
                  Nombre: <h:inputText value="#{signUpBean.name}" />  <br/>
                 <br/>
                 Apellidos: <h:inputText value="#{signUpBean.surname}" />  <br/>
                 <br/>
-                Email: <h:inputText value="#{signUpBean.email}" />  <br/>
-                <br/>
+                
                  <div class="littleText">
                   * aaaa/mm/dd *
                  </div>
@@ -40,12 +39,14 @@ and open the template in the editor.
                 <div class="littleText">
                   *Este nombre de usuario no puede ser cambiado mas adelante
                  </div>
-                Nombre de usuario: <h:inputText value="#{signUpBean.userName}" required="true" requiredMessage="El nombre de usuario es obligatorio" />  <br/>
+                *Nombre de usuario: <h:inputText value="#{signUpBean.userName}" required="true" requiredMessage="El nombre de usuario es obligatorio" />  <br/>
                 <br/>
-                Contraseña: <h:inputSecret value="#{signUpBean.password}" required="true" requiredMessage="La contraseña es obligatoria"/> <br/>
+                *Contraseña: <h:inputSecret value="#{signUpBean.password}" required="true" requiredMessage="La contraseña es obligatoria"/> <br/>
+                <br/>
+                *Email: <h:inputText value="#{signUpBean.email}" required="true" requiredMessage="El email es obligatorio"/>  <br/>
                 <br/>
                 <h:commandButton value="Registrarse" action="#{signUpBean.doSignUp()}"/> <br/>
             </div>
-        </h:form>
+        </h:form>   
     </body>
 </html>

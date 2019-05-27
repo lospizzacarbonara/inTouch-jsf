@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 
 /**
@@ -103,12 +102,14 @@ protected String fecha;
      usuario.setName(name);
      usuario.setSurname(surname);
      SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+     if(!fecha.equals("")){
         try {
             Date date = format.parse(fecha);
             usuario.setBirthdate( new Date(date.getTime()+24*60*60*1000) );
         } catch (ParseException ex) {
             Logger.getLogger(SignUpBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+     }
      this.userFacade.create(usuario);
        
     return "login";
