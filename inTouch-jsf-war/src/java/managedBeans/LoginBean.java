@@ -23,16 +23,14 @@ public class LoginBean implements Serializable {
     
     @EJB
     private UserFacade userFacade;
-
     protected User user;
     protected String userName;
     protected String password;
-    protected boolean login;
+    protected boolean loginError;
     /**
      * Creates a new instance of LoginBean
      */
     public LoginBean() {
-        login= true;
     }
 
     public User getUser() {
@@ -59,16 +57,19 @@ public class LoginBean implements Serializable {
         this.password = password;
     }
    
+    public boolean getLoginError() {
+        return loginError;
+    }
+
     public String doLogin(){  
         String sha512 = getSHA512(password);
         User usuario = this.userFacade.findByUsernameAndPassword(userName, sha512);
         if(usuario!=null && usuario.getUsername().equals(userName) && usuario.getPassword().equals(sha512)){
-            login=true;
             user=usuario;
             return "wall";
         }
-        login=false;
-        return "index";
+        loginError=true;
+        return "login";
     }
     
     public String doSignUp(){

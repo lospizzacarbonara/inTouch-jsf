@@ -36,12 +36,13 @@ and open the template in the editor.
                 Fecha de Nacimiento: <h:inputText value="#{signUpBean.fecha}" />  <br/>
                 <br/>
                 <br/>
-                Nombre de usuario: <h:inputText value="#{signUpBean.userName}" />  <br/>
-                <br/>
-                 <div class="littleText">
+                
+                <div class="littleText">
                   *Este nombre de usuario no puede ser cambiado mas adelante
                  </div>
-                Contraseña: <h:inputSecret value="#{signUpBean.password}" /> <br/>
+                Nombre de usuario: <h:inputText value="#{signUpBean.userName}" required="true" requiredMessage="El nombre de usuario es obligatorio" />  <br/>
+                <br/>
+                Contraseña: <h:inputSecret value="#{signUpBean.password}" required="true" requiredMessage="La contraseña es obligatoria"/> <br/>
                 <br/>
                 <h:commandButton value="Registrarse" action="#{signUpBean.doSignUp()}"/> <br/>
             </div>
