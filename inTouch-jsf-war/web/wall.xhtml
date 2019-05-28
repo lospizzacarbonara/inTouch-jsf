@@ -271,7 +271,9 @@
                         <ui:repeat var="pendingFriend" value="#{adminFriendInvitesBean.friendInvites}">
                             <fieldset class="thirdSize">
                                 <legend class="center-legend">
-                                    <a href="#">#{pendingFriend.getUsername()}</a>
+                                    <h:link outcome="#{userProfileBean.doProfileUser(user)}">
+                                        #{pendingFriend.getUsername()}
+                                    </h:link>
                                 </legend>
                                 <h:form>
                                     <h:commandButton action="#{friendsBean.accept(user)}" value="Aceptar"/>
