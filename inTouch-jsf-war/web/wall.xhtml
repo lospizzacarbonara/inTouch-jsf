@@ -274,14 +274,10 @@
                                     <a href="#">#{pendingFriend.getUsername()}</a>
                                 </legend>
                                 <h:form>
-                                        <input type="hidden" name="acceptUserId" value="id"/>
-                                        <input type="hidden" name="pageURL" value="url"/>
-                                        <h:commandButton value="aceptar"/>
+                                    <h:commandButton action="#{friendsBean.accept(user)}" value="Aceptar"/>
                                 </h:form>
                                 <h:form>
-                                        <input type="hidden" name="cancelUserId" value="id"/>
-                                        <input type="hidden" name="pageURL" value="url"/>
-                                        <h:commandButton value="rechazar"/>
+                                    <h:commandButton action="#{friendsBean.deny(user)}" value="Rechazar"/>
                                 </h:form>
                             </fieldset>
                             <br/>
@@ -309,7 +305,7 @@
                             <br/>
                         </ui:repeat>
                     </h:panelGroup>
-                    </td>
+                </td>
             </tr>
         </table>
         
