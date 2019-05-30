@@ -233,7 +233,7 @@
                                     </h:link>
                                 </h3>
                                 <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false"/></p>
-                                <span style="color: darkgrey; margin-right: -8px; float: right; font-size: smaller">#{post.getPublishedDate()}</span>
+                                <span style="color: darkgrey; margin-right: -8px; float: right; font-size: smaller">#{postBean.printDate(post.getPublishedDate())}</span>
                             </div>
                         </ui:repeat>
                     </div>
@@ -259,7 +259,7 @@
                                     </h:outputText>
                                 </h3>
                                 <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false" /></p>
-                                <span style="color: darkgrey; margin-right: -8px; float: right; font-size: smaller">#{post.getPublishedDate()}</span>
+                                <span style="color: darkgrey; margin-right: -8px; float: right; font-size: smaller">#{postBean.printDate(post.getPublishedDate())}</span>
                             </div>
                         </ui:repeat>
                     </div>

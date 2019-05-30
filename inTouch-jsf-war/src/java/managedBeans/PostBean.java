@@ -8,6 +8,8 @@ package managedBeans;
 import inTouch.ejb.PostFacade;
 import inTouch.entity.Post;
 import inTouch.entity.User;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -50,6 +52,12 @@ public class PostBean {
             return Markdown.toHtml(body);
         else
             return null;
+    }
+    
+    public String printDate(Date date){
+      SimpleDateFormat format = new SimpleDateFormat ("yyyy/MM/dd 'at' hh:mm - zzz");
+
+      return format.format(date);
     }
     
     /*
