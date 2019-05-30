@@ -21,7 +21,9 @@
                 <ui:repeat var="user" value="#{friendsBean.pendingToAcceptFriendList}">
                     <fieldset class="thirdSize">
                         <legend class="center-legend">
-                            <h:link outcome="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                            <h:form>
+                                <h:commandLink action="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                            </h:form>
                         </legend>
                         <h:form>
                             <h:commandButton action="#{friendsBean.accept(user)}" value="Accept"/>
@@ -41,7 +43,9 @@
                 <ui:repeat var="user" value="#{friendsBean.pendingFriendList}">
                     <fieldset class="thirdSize">
                         <legend class="center-legend">
-                            <h:link outcome="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                            <h:form>
+                                <h:commandLink action="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                            </h:form>
                         </legend>
                         <h:form>
                             <h:commandButton action="#{friendsBean.cancel(user)}" value="Cancel request"/>
@@ -58,7 +62,9 @@
                 <ui:repeat var="user" value="#{friendsBean.friendList}">
                     <fieldset class="thirdSize">
                         <legend class="center-legend">
-                            <h:link outcome="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                            <h:form>
+                                <h:commandLink action="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                            </h:form>
                         </legend>
                         <h:form>
                             <h:commandButton action="#{friendsBean.remove(user)}" value="Remove friend"/>
