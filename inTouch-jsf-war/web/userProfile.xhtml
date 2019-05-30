@@ -9,9 +9,11 @@
     
     <h:head>
         <title>User Profile</title>
-        <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/navmenu.css" />
+        <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/perfil.css" />
+        
+        
     </h:head>
     
     <h:body>
@@ -28,7 +30,7 @@
                             </th>
                             <td colspan="3">
                                 <!-- el nombre de usuario no se puede modificar -->
-                                <h:inputText id="username" size="28" value="#{userProfileBean.user.username}" disabled="true"/>
+                                <h:inputText id="username" size="28" value="#{userProfileBean.userProfile.username}" disabled="true"/>
                             </td>
                         </tr>
                         <tr class="filaPerfil">
@@ -36,7 +38,7 @@
                                 <label for="name">Name:</label>
                             </th>
                             <td colspan="3">
-                                <h:inputText id="name" size="28" value="#{userProfileBean.user.name}" disabled="#{!userProfileBean.myProfile}" />
+                                <h:inputText id="name" size="28" value="#{userProfileBean.userProfile.name}" disabled="#{!userProfileBean.myProfile}" />
                             </td>
                         </tr>
                         <tr class="filaPerfil">
@@ -44,16 +46,18 @@
                                 <label for="surname">Surname:</label>
                             </th>
                             <td colspan="3">
-                                <h:inputText id="surname" size="28" value="#{userProfileBean.user.surname}"  disabled="#{!userProfileBean.myProfile}"/>
+                                <h:inputText id="surname" size="28" value="#{userProfileBean.userProfile.surname}"  disabled="#{!userProfileBean.myProfile}"/>
                             </td>
                         </tr>
                         
                         <tr>
                             <th class="alineadoDerecha" colspan="15">
-                                Birthdate:
+                                Birthdate (aaaa/mm/dd):
                             </th>
-                            <td colspan="3">
-                                <h:inputText id="birthdate" value="#{userProfileBean.user.birthdate}" disabled="#{!userProfileBean.myProfile}"/>  <br/>
+                            <td colspan="3" style="text-align: left">
+                                <h:inputText id="birthdate" value="#{userProfileBean.userProfile.birthdate}" disabled="#{!userProfileBean.myProfile}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:inputText>  <br/>
                             </td>
                         </tr>
                         <tr>
@@ -67,22 +71,24 @@
                         </tr>
                         <tr class="rowButton">
                             <td colspan="30" >
-                                <h:outputText value="#{userProfileBean.user.name} is my friend" rendered="#{userProfileBean.userFriend}"/>
+                                <h:outputText value="#{userProfileBean.userProfile.name} is my friend" rendered="#{userProfileBean.userFriend}"/>
                             </td>
                         </tr>
-                        <tr class="rowButton">
-                            <td colspan="15">
-                                Groups in common :
-                            </td>
-                        </tr>
-                        
                     </table>
                     <br/>
                 </fieldset>
             </h:form>
-        
-        myProfile = #{userProfileBean.myProfile}
-        userFriend = #{userProfileBean.userFriend}
+            
+        <h:form>
+            <fieldset class="groups">
+                <h:dataTable id="commonGroups" value="#{userProfileBean.userGroups}"  var="group">
+                    <h:column>
+    				<f:facet name="header">Groups</f:facet>
+    				#{group.name}
+                    </h:column>
+                </h:dataTable>
+            </fieldset>
+        </h:form>
 
 <!--             Opción para realizar el cambio del correo electronico asociado a la cuenta del
             usario 

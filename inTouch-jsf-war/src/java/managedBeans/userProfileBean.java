@@ -38,7 +38,7 @@ public class userProfileBean {
     protected LoginBean loginBean;
     
     
-    private User user;
+    private User userProfile;
     private List<SocialGroup> userGroups;
     private boolean userFriend;
     private boolean myProfile;
@@ -54,9 +54,11 @@ public class userProfileBean {
         return userFriend;
     } 
 
-    public User getUser() {
-        return user;
+    public User getUserProfile() {
+        return userProfile;
     }
+
+   
     
     public boolean isMyProfile() {
         return myProfile;
@@ -64,7 +66,7 @@ public class userProfileBean {
     
     public String doProfileUserLogin()
     {
-        user = loginBean.getUser();
+        userProfile = loginBean.getUser();
         userFriend = false;
         myProfile = true;
         userGroups = Collections.emptyList();
@@ -74,6 +76,7 @@ public class userProfileBean {
     public String doProfileUser(User user)
     {
         User userLogin = loginBean.getUser();
+        this.userProfile = user;
         myProfile = false;
         userFriend = this.friendshipFacade.areFriends(userLogin, user);
         userGroups = this.membershipFacade.findGroupsBetweenUsers(userLogin, user);
@@ -82,6 +85,7 @@ public class userProfileBean {
     
     public String doSaveProfileUser()
     {
+        
         return "userProfile";
     }
 }

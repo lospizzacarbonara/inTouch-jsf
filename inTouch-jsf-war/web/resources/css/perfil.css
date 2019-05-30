@@ -20,6 +20,7 @@ fieldset.datos
 {
     top: 8em;
     height: 16em;
+    border-color: green;
 }
 fieldset.email
 {
@@ -30,6 +31,10 @@ fieldset.seguridad
 {
     top: 36em;
     height: 4em;
+}
+fieldset.groups
+{
+    top: 52em;
 }
 td
 {
