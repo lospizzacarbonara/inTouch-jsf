@@ -227,10 +227,12 @@
                                     </h:form>
                                 </span>
                                 <h3 align="center">  
-                                    <h:link outcome="#{userProfileBean.doProfileUser(user)}">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                        #{post.getAuthor().getUsername()}
-                                    </h:link>
+                                    <h:form>
+                                        <h:commandLink action="#{userProfileBean.doProfileUser(post.getAuthor())}">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                            #{post.getAuthor().getUsername()}
+                                        </h:commandLink>
+                                    </h:form>      
                                 </h3>
                                 <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false"/></p>
                                 <span style="color: darkgrey; margin-right: -8px; float: right; font-size: smaller">#{postBean.printDate(post.getPublishedDate())}</span>
@@ -247,16 +249,17 @@
                                     </h:form>
                                 </span>
                                 <h3 align="center">
-                                    <h:link outcome="#{userProfileBean.doProfileUser(user)}">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
-                                        #{post.getAuthor().getUsername()}
-                                    </h:link>
-                                
-                                    <h:outputText 
-                                        value="- &lt;a href=&quot;#&quot;&gt;#{post.getSocialGroup().getName()}&lt;/a&gt;"
-                                        rendered="#{post.getSocialGroup() != null}"
-                                        escape="false">
-                                    </h:outputText>
+                                    <h:form>
+                                        <h:commandLink action="#{userProfileBean.doProfileUser(post.getAuthor())}">
+                                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                            #{post.getAuthor().getUsername()}
+                                        </h:commandLink>     
+                                        <h:outputText 
+                                            value="- &lt;a href=&quot;#&quot;&gt;#{post.getSocialGroup().getName()}&lt;/a&gt;"
+                                            rendered="#{post.getSocialGroup() != null}"
+                                            escape="false">
+                                        </h:outputText>
+                                    </h:form>
                                 </h3>
                                 <p><h:outputText value="#{postBean.parsePost(post.getBody())}" escape="false" /></p>
                                 <span style="color: darkgrey; margin-right: -8px; float: right; font-size: smaller">#{postBean.printDate(post.getPublishedDate())}</span>
