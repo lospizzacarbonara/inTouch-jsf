@@ -88,4 +88,10 @@ public class userProfileBean {
         
         return "userProfile";
     }
+    
+    public String doSaveEmail()
+    {
+        
+        return "userProfile";
+    }
 }
