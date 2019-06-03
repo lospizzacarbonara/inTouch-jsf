@@ -17,7 +17,18 @@
     </h:head>
     
     <h:body>
-         <!-- Opciones para el cambio de los datos personales: nombre, apellido y fecha de nacimiento -->
+        <!-- Menu de navegacion -->
+        <ui:insert name="header" >
+            <ui:include src="navBar.xhtml"/>
+	</ui:insert>       
+        
+        <!-- Titulo de la página  -->
+        <div name="titulo" class="tituloPerfil">
+            <h1  align="center">User Profile</h1>
+        </div>
+        <br/>
+        
+        <!-- Opciones para el cambio de los datos personales: nombre, apellido y fecha de nacimiento -->
         <!-- El nombre de usuario una vez creado no se puede modificar por eso el input correspondiente
         al nombre de usuario está deshabilitado -->
         <h:form id="perfilDeUsuario">
@@ -64,11 +75,13 @@
                             <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
+                        <h:panelGroup layout="block" rendered="#{userProfileBean.myProfile}">
                         <tr class="rowButton">
                             <td colspan="15" >
                                 <h:commandButton id="modifyPersonalData" value="Modify Personal Data" action="#{userProfileBean.doSaveProfileUser()}" disabled="#{!userProfileBean.myProfile}"/>
                             </td>
                         </tr>
+                        </h:panelGroup>
                         <tr class="rowButton">
                             <td colspan="30" >
                                 <h:outputText value="#{userProfileBean.userProfile.name} is my friend" rendered="#{userProfileBean.userFriend}"/>
@@ -78,80 +91,73 @@
                     <br/>
                 </fieldset>
             </h:form>
-            
+        
+        <!-- hay que arreglar lo de buscar grupos -->
+        <h:panelGroup layout="block" rendered="#{userProfileBean.userGroups.size()!=0}">  
         <h:form>
             <fieldset class="groups">
-                <h:dataTable id="commonGroups" value="#{userProfileBean.userGroups}"  var="group">
-                    <h:column>
-    				<f:facet name="header">Groups</f:facet>
+                <legend>Groups</legend>
+                <h:dataTable id="commonGroups" value="#{userProfileBean.userGroups}"  var="group" 
+                             columnClasses="columnHeader,columnHeader2, columnGroups">
+                    <h:column rendered="#{userProfileBean.myProfile}">
+    				<f:facet name="header">Groups:</f:facet>
+                    </h:column>
+                    <h:column rendered="#{!userProfileBean.myProfile}">
+    				<f:facet name="header">Groups in common:</f:facet>
+                    </h:column>
+                    <h:column >
+                                <f:facet name="header"></f:facet>
     				#{group.name}
                     </h:column>
                 </h:dataTable>
             </fieldset>
         </h:form>
+    </h:panelGroup>
 
-<!--             Opción para realizar el cambio del correo electronico asociado a la cuenta del
-            usario 
-            
-            <%
-                if(miPerfil || myFriend)
-                {
-            %>
-            <form name="correoElectronico" method="post" action="userProfileSaveEmailServlet">
+        <!--Opción para realizar el cambio del correo electronico asociado a la cuenta del
+        usario--> 
+        
+        <!-- si es mi perfil o es de un amigo -->
+            <h:form id="correoElectronico">
                 <fieldset name="email" class="email">
-                    <legend><%=ml.get("email")%></legend>
+                    <legend>E-mail</legend>
                     <table name="correo" class="centradoPerfil">
                         <tr>
                             <th class="alineadoDerecha" colspan="15">
-                                <%=ml.get("email")%>:
+                                E-mail:
                             </th>
                             <td>
-                                <input name="email" class="correoElectronico" size="40" maxsize="40" value="<%= user.getEmail() %>" <%= inputDisabled %>/>
+                                <h:inputText id="email" class="correoElectronico" size="40" value="#{userProfileBean.userProfile.email}" disabled="#{!userProfileBean.myProfile}"/>
                             </td>
                         </tr>
                         <tr>
                             <td rowspan="2" colspan="15">&nbsp;</td>
                             <td>&nbsp;</td>
                         </tr>
-                         <% 
-                            if(miPerfil)
-                            {
-                        %>
-                        <tr class="rowButton">
-                            <td>
-                                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                                <input type="hidden" name="emailOriginal" value="<%= user.getEmail() %>"/>
-                                 <input type="submit" id="modificarEmail" disabled value="Modificar el Correo Electronico"/> 
-                                <button name="modificarEmail"><%=ml.get("modifyEmail")%></button> 
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
+                        <h:panelGroup layout="block" rendered="#{userProfileBean.myProfile}">
+                            <tr class="rowButton">
+                                <td>
+                                    <h:commandButton id="modifyEmail" value="Modify E-mail" action="#{userProfileBean.doSaveEmail()}" disabled="#{!userProfileBean.myProfile}"/> 
+                                </td>
+                             </tr>
+                        </h:panelGroup>
                     </table>
                     <br/>
                     <br/>
                 </fieldset>
-            </form>
-            <%
-                }
-            %>
-            
-        <% 
-            if(miPerfil)
-            {
-        %>        
-         Botón para ir a la opción de cambio de contraseña 
-        <fieldset name="seguridad" class="seguridad">
-            <legend><%=ml.get("password")%></legend>
-            <form name="claveDeUsuario" method="post" action="changePasswordServlet">
-                                <input type="hidden" name="idUser" value="<%=user.getId()%> "/>
-                                <button><%=ml.get("changePassword")%></button>
-            </form>
-        </fieldset>
-        <% 
-            }
-        %>-->
+            </h:form>
+         
+        
+         <!-- Botón para ir a la opción de cambio de contraseña --> 
+        <h:panelGroup layout="block" rendered="#{userProfileBean.myProfile}"> 
+            <fieldset name="seguridad" class="seguridad">
+                <legend>Password</legend>
+                <h:form id="claveDeUsuario">
+                    <h:button id="changePassword" value="Change password" outcome="changePassword" />
+                </h:form>
+            </fieldset>
+        </h:panelGroup> 
+     
     </h:body>
 </html>
 

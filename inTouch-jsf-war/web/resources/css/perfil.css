@@ -20,7 +20,6 @@ fieldset.datos
 {
     top: 8em;
     height: 16em;
-    border-color: green;
 }
 fieldset.email
 {
@@ -34,7 +33,7 @@ fieldset.seguridad
 }
 fieldset.groups
 {
-    top: 52em;
+    top: 42em;
 }
 td
 {
@@ -60,4 +59,15 @@ tr.filaPerfil
 tr.rowButton
 {
     text-align: left;
+}
+.columnHeader
+{
+    width: 10em;
+}.columnHeader2
+{
+    width: 20em;
+}
+.columnGroups
+{
+    width: 50em;
 }
