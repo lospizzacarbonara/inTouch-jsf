@@ -5,7 +5,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Friends</title>
+        <title>#{msg['title']}</title>
         <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/navmenu.css" />
         <link rel="stylesheet" href="resources/css/friends.css" />
@@ -18,7 +18,7 @@
         <!-- Pending to Accept Friends -->
         <h:panelGroup id="pendingTo" layout="block" rendered="#{!friendsBean.pendingToAcceptFriendList.isEmpty()}">
             <fieldset>
-                <legend>Pending to accept friends</legend> 
+                <legend>#{msg['pendingFriends']}</legend> 
                 <ui:repeat var="user" value="#{friendsBean.pendingToAcceptFriendList}">
                     <fieldset class="thirdSize">
                         <legend class="center-legend">
@@ -27,12 +27,12 @@
                             </h:form>
                         </legend>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.accept(user)}" value="Accept">
+                            <h:commandButton action="#{friendsBean.accept(user)}" value="#{msg['acceptFriend']}">
                                 <f:ajax event="click" listener="#{friendsBean.accept(user)}" render="pendingTo"/>
                             </h:commandButton>
                         </h:form>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.deny(user)}" value="Deny">
+                            <h:commandButton action="#{friendsBean.deny(user)}" value="#{msg['removeFriendship']}">
                                 <f:ajax event="click" listener="#{friendsBean.deny(user)}" render="pendingTo"/>
                             </h:commandButton>
                         </h:form>
@@ -44,7 +44,7 @@
         <!-- Pending Friends -->
         <h:panelGroup id="pending" layout="block" rendered="#{!friendsBean.pendingFriendList.isEmpty()}">
             <fieldset>
-                <legend>Pending friends</legend> 
+                <legend>#{msg['pendingAccepted']}</legend> 
                 <ui:repeat var="user" value="#{friendsBean.pendingFriendList}">
                     <fieldset class="thirdSize">
                         <legend class="center-legend">
@@ -53,7 +53,7 @@
                             </h:form>
                         </legend>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.cancel(user)}" value="Cancel request">
+                            <h:commandButton action="#{friendsBean.cancel(user)}" value="#{msg['cancelRequest']}">
                                 <f:ajax event="click" listener="#{friendsBean.cancel(user)}" render="pending"/>
                             </h:commandButton>
                         </h:form>
@@ -65,7 +65,7 @@
         <!-- Friends -->
         <h:panelGroup id="friends" layout="block" rendered="#{!friendsBean.friendList.isEmpty()}">
             <fieldset>
-                <legend>Friends</legend> 
+                <legend>#{msg['friends']}</legend> 
                 <ui:repeat var="user" value="#{friendsBean.friendList}">
                     <fieldset class="thirdSize">
                         <legend class="center-legend">
@@ -74,7 +74,7 @@
                             </h:form>
                         </legend>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.remove(user)}" value="Remove friend">
+                            <h:commandButton action="#{friendsBean.remove(user)}" value="#{msg['removeFriend']}">
                                 <f:ajax event="click" listener="#{friendsBean.remove(user)}" render="friends"/>
                             </h:commandButton>
                         </h:form>
@@ -87,7 +87,7 @@
         <h:panelGroup layout="block" rendered="#{friendsBean.friendList.isEmpty()}">
             <fieldset>
                 <legend>Friends</legend> 
-                You dont have any friends yet. <h:link outcome="search" value="Search for them!"/>
+                #{msg['noFriendsYet']} <h:link outcome="search" value="#{msg['searchThem']}"/>
             </fieldset>
         </h:panelGroup>
     </h:body>
