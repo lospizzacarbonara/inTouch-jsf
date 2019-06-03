@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Friends</title>
         <link rel="stylesheet" href="resources/css/inTouch.css" />
@@ -15,7 +16,7 @@
 	</ui:insert>
         
         <!-- Pending to Accept Friends -->
-        <h:panelGroup layout="block" rendered="#{!friendsBean.pendingToAcceptFriendList.isEmpty()}">
+        <h:panelGroup id="pendingTo" layout="block" rendered="#{!friendsBean.pendingToAcceptFriendList.isEmpty()}">
             <fieldset>
                 <legend>Pending to accept friends</legend> 
                 <ui:repeat var="user" value="#{friendsBean.pendingToAcceptFriendList}">
@@ -26,10 +27,14 @@
                             </h:form>
                         </legend>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.accept(user)}" value="Accept"/>
+                            <h:commandButton action="#{friendsBean.accept(user)}" value="Accept">
+                                <f:ajax event="click" listener="#{friendsBean.accept(user)}" render="pendingTo"/>
+                            </h:commandButton>
                         </h:form>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.deny(user)}" value="Deny"/>
+                            <h:commandButton action="#{friendsBean.deny(user)}" value="Deny">
+                                <f:ajax event="click" listener="#{friendsBean.deny(user)}" render="pendingTo"/>
+                            </h:commandButton>
                         </h:form>
                     </fieldset>
                 </ui:repeat>
@@ -37,7 +42,7 @@
         </h:panelGroup>
         
         <!-- Pending Friends -->
-        <h:panelGroup layout="block" rendered="#{!friendsBean.pendingFriendList.isEmpty()}">
+        <h:panelGroup id="pending" layout="block" rendered="#{!friendsBean.pendingFriendList.isEmpty()}">
             <fieldset>
                 <legend>Pending friends</legend> 
                 <ui:repeat var="user" value="#{friendsBean.pendingFriendList}">
@@ -48,7 +53,9 @@
                             </h:form>
                         </legend>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.cancel(user)}" value="Cancel request"/>
+                            <h:commandButton action="#{friendsBean.cancel(user)}" value="Cancel request">
+                                <f:ajax event="click" listener="#{friendsBean.cancel(user)}" render="pending"/>
+                            </h:commandButton>
                         </h:form>
                     </fieldset>
                 </ui:repeat>
@@ -56,7 +63,7 @@
         </h:panelGroup>
         
         <!-- Friends -->
-        <h:panelGroup layout="block" rendered="#{!friendsBean.friendList.isEmpty()}">
+        <h:panelGroup id="friends" layout="block" rendered="#{!friendsBean.friendList.isEmpty()}">
             <fieldset>
                 <legend>Friends</legend> 
                 <ui:repeat var="user" value="#{friendsBean.friendList}">
@@ -67,7 +74,9 @@
                             </h:form>
                         </legend>
                         <h:form>
-                            <h:commandButton action="#{friendsBean.remove(user)}" value="Remove friend"/>
+                            <h:commandButton action="#{friendsBean.remove(user)}" value="Remove friend">
+                                <f:ajax event="click" listener="#{friendsBean.remove(user)}" render="friends"/>
+                            </h:commandButton>
                         </h:form>
                     </fieldset>
                 </ui:repeat>
