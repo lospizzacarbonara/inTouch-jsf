@@ -66,10 +66,10 @@ public class userProfileBean {
     
     public String doProfileUserLogin()
     {
-        userProfile = loginBean.getUser();
-        userFriend = false;
-        myProfile = true;
-        userGroups = Collections.emptyList();
+        this.userProfile = loginBean.getUser();
+        this.userFriend = false;
+        this.myProfile = true;
+        this.userGroups = this.membershipFacade.findGroupsBetweenUsers(userProfile, userProfile);        
         return "userProfile";
     }
     

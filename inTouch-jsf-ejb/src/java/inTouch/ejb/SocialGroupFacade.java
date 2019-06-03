@@ -70,4 +70,12 @@ public class SocialGroupFacade extends AbstractFacade<SocialGroup> {
         
         return (User)q.getSingleResult();
     }
+    
+    public List<SocialGroup> findByUser(User user)
+    {
+        Query q;
+        q = this.em.createQuery("Select s From SocialGroup s Where s.membershipCollection");
+        
+        return q.getResultList();
+    }
 }

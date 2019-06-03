@@ -55,4 +55,12 @@ public class MembershipFacade extends AbstractFacade<Membership> {
             return null;
         }
     }
+    
+    public List<SocialGroup> findGroupsByUser(User user) 
+    {
+        Query q;
+        q = this.em.createQuery("Select m.socialGroup From Membership m Where m.member1 Like :usuario");
+        q.setParameter("usuario", user);
+        return q.getResultList();
+    }
 }

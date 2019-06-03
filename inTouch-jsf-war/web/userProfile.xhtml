@@ -22,6 +22,12 @@
             <ui:include src="navBar.xhtml"/>
 	</ui:insert>       
         
+        <!-- Titulo de la página  -->
+        <div name="titulo" class="tituloPerfil">
+            <h1  align="center">User Profile</h1>
+        </div>
+        <br/>
+        
         <!-- Opciones para el cambio de los datos personales: nombre, apellido y fecha de nacimiento -->
         <!-- El nombre de usuario una vez creado no se puede modificar por eso el input correspondiente
         al nombre de usuario está deshabilitado -->
@@ -85,13 +91,22 @@
                     <br/>
                 </fieldset>
             </h:form>
+        
         <!-- hay que arreglar lo de buscar grupos -->
         <h:panelGroup layout="block" rendered="#{userProfileBean.userGroups.size()!=0}">  
         <h:form>
             <fieldset class="groups">
-                <h:dataTable id="commonGroups" value="#{userProfileBean.userGroups}"  var="group">
-                    <h:column>
-    				<f:facet name="header">Groups</f:facet>
+                <legend>Groups</legend>
+                <h:dataTable id="commonGroups" value="#{userProfileBean.userGroups}"  var="group" 
+                             columnClasses="columnHeader,columnHeader2, columnGroups">
+                    <h:column rendered="#{userProfileBean.myProfile}">
+    				<f:facet name="header">Groups:</f:facet>
+                    </h:column>
+                    <h:column rendered="#{!userProfileBean.myProfile}">
+    				<f:facet name="header">Groups in common:</f:facet>
+                    </h:column>
+                    <h:column >
+                                <f:facet name="header"></f:facet>
     				#{group.name}
                     </h:column>
                 </h:dataTable>
@@ -142,6 +157,7 @@
                 </h:form>
             </fieldset>
         </h:panelGroup> 
+     
     </h:body>
 </html>
 
