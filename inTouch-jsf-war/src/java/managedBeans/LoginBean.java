@@ -76,4 +76,10 @@ public class LoginBean implements Serializable {
         return "signUp";
     }
     
+    public String doLogOut() {
+        user = null;
+        userName = null;
+        password = null;
+        return "login";
+    }
 }
