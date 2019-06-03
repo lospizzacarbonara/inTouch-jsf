@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Search</title>
+        <title>#{msg['title']}</title>
         <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/navmenu.css" />
         <link rel="stylesheet" href="resources/css/friends.css" />
@@ -22,7 +22,7 @@ and open the template in the editor.
         <h:panelGroup>
             <h:form>
                 <fieldset>
-                     <legend>Search for users and groups</legend>
+                     <legend>#{msg['userSearch']}</legend>
                      Search: <h:inputText id="textbox" value="#{searchBean.searchText}">
                          <f:ajax event="keyup" execute="textbox" listener="#{searchBean.search()}" render="friends groups"/>
                      </h:inputText><br/>
@@ -32,39 +32,36 @@ and open the template in the editor.
         <!-- Friends -->
         <h:panelGroup id="friends" layout="block" style="text-align:center">
             <fieldset>
-                <legend>Users</legend> 
+                <legend>#{msg['users']}</legend> 
                 <ui:repeat var="user" value="#{searchBean.userList}">
                     <fieldset>
                         <legend class="center-legend">
                                 <h:form>
                                     <h:commandLink action="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
-                                    <h:commandButton action="#{searchBean.addFriend(user)}" value="#{searchBean.getFriendButtonText(user)}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
+                                    <h:commandButton action="#{searchBean.addFriend(user)}" value="#{msg[searchBean.getFriendButtonText(user)]}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
                                 </h:form>
                         </legend>
                         <h:outputText value="#{searchBean.getPost(user)}" escape="false"/>
                     </fieldset>
 
                 </ui:repeat>
+                <!-- No Friends -->
                 <h:panelGroup layout="block" rendered="#{searchBean.userList.isEmpty()}">
-                    <p>No users found.</p>
+                    <p>#{msg['noResultFound']}</p>
                 </h:panelGroup>
             </fieldset>
         </h:panelGroup>
-        <!-- No Friends -->
-        
-        
-        
         <!-- Groups -->
         <h:panelGroup id="groups" layout="block" style="text-align:center">
             <fieldset>
-                <legend>Groups</legend> 
+                <legend>#{msg['groups']}</legend> 
                 <ui:repeat var="group" value="#{searchBean.groupList}">
                     <h:form>
                         <fieldset>
                             <legend class="center-legend">
                                     <h:link outcome="search" value="#{group.getName()}"/>
 
-                                    <h:commandButton action="#{searchBean.joinGroup(group)}" value="#{searchBean.getGroupButtonText(group)}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
+                                    <h:commandButton action="#{searchBean.joinGroup(group)}" value="#{msg[searchBean.getGroupButtonText(group)]}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
                             </legend>
                             <h:outputText value="#{searchBean.getPostGroup(group)}" escape="false"/>
                         </fieldset>
@@ -72,7 +69,7 @@ and open the template in the editor.
                 </ui:repeat>
                 <!-- No Groups -->
                 <h:panelGroup layout="block" rendered="#{searchBean.groupList.isEmpty()}">
-                        <p>No groups found.</p>
+                        <p>#{msg['noResultFound']}</p>
                 </h:panelGroup>
             </fieldset>
         </h:panelGroup>
