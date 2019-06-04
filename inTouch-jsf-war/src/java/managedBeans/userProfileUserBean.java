@@ -20,10 +20,10 @@ import javax.inject.Inject;
  *
  * @author avila
  */
-@Named(value = "userProfileBean")
+@Named(value = "userProfileUserBean")
 @RequestScoped
-public class userProfileBean {
-
+public class userProfileUserBean {
+    
     @EJB
     private MembershipFacade membershipFacade;
 
@@ -42,42 +42,51 @@ public class userProfileBean {
     private User userProfile;
     private List<SocialGroup> userGroups;
     private boolean userFriend;
-    private boolean myProfile;
-    
-    public userProfileBean() {
+    /**
+     * Creates a new instance of userProfileUserBean
+     */
+    public userProfileUserBean() {
+    }
+
+    public User getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(User userProfile) {
+        this.userProfile = userProfile;
     }
 
     public List<SocialGroup> getUserGroups() {
         return userGroups;
     }
 
+    public void setUserGroups(List<SocialGroup> userGroups) {
+        this.userGroups = userGroups;
+    }
+
     public boolean isUserFriend() {
         return userFriend;
-    } 
-
-    public User getUserProfile() {
-        return userProfile;
     }
 
-   
-    
-    public boolean isMyProfile() {
-        return myProfile;
+    public void setUserFriend(boolean userFriend) {
+        this.userFriend = userFriend;
     }
     
-    public String doProfileUserLogin()
+    public String doUserProfileUser(User user)
     {
-        return this.userProfileLoginBean.doUserProfileLogin();
-    }
-    
-    public String doProfileUser(User user)
-    {
-        User userLogin = loginBean.getUser();
-        this.userProfile = user;
-        myProfile = false;
-        userFriend = this.friendshipFacade.areFriends(userLogin, user);
-        userGroups = this.membershipFacade.findGroupsBetweenUsers(userLogin, user);
-        return "userProfile";
-    }
-    
+        String str;
+        User userLogin = this.loginBean.getUser();
+        if(userLogin.getId().equals(user.getId()))
+        {
+            str = this.userProfileLoginBean.doUserProfileLogin();
+        }
+        else
+        {
+            this.userProfile = user;
+            this.userFriend = this.friendshipFacade.areFriends(userProfile, userLogin);
+            this.userGroups = this.membershipFacade.findGroupsBetweenUsers(userProfile, userLogin);
+            str = "userProfileUser";
+        }
+        return str;
+    }    
 }
