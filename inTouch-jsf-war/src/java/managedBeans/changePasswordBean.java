@@ -36,6 +36,10 @@ public class changePasswordBean implements Serializable{
     protected String oldPassword;
     protected String newPassword1;
     protected String newPassword2;
+    protected boolean oldPasswordOK;
+    protected boolean newPasswordsEquals;
+    protected boolean newPasswordDiffCurrent;
+    protected boolean allOk;
     
     /**
      * Creates a new instance of changePasswordBean
@@ -47,6 +51,13 @@ public class changePasswordBean implements Serializable{
     public void init()
     {
         this.userLogin = this.loginBean.getUser();
+        this.oldPassword = "";
+        this.newPassword1 = "";
+        this.newPassword2 = "";
+        this.oldPasswordOK = true;
+        this.newPasswordsEquals = true;
+        this.newPasswordDiffCurrent = true;
+        this.allOk = false;
     }
 
     public User getUserLogin() {
@@ -58,7 +69,7 @@ public class changePasswordBean implements Serializable{
     }
 
     public String getOldPassword() {
-        return oldPassword;
+        return this.oldPassword;
     }
 
     public void setOldPassword(String oldPassword) {
@@ -66,7 +77,7 @@ public class changePasswordBean implements Serializable{
     }
 
     public String getNewPassword1() {
-        return newPassword1;
+        return this.newPassword1;
     }
 
     public void setNewPassword1(String newPassword1) {
@@ -74,20 +85,63 @@ public class changePasswordBean implements Serializable{
     }
 
     public String getNewPassword2() {
-        return newPassword2;
+        return this.newPassword2;
     }
 
     public void setNewPassword2(String newPassword2) {
         this.newPassword2 = newPassword2;
     }
 
+    public boolean isOldPasswordOK() {
+        return oldPasswordOK;
+    }
+
+    public void setOldPasswordOK(boolean oldPasswordOK) {
+        this.oldPasswordOK = oldPasswordOK;
+    }
+
+    public boolean isNewPasswordsEquals() {
+        return newPasswordsEquals;
+    }
+
+    public void setNewPasswordsEquals(boolean newPasswordsEquals) {
+        this.newPasswordsEquals = newPasswordsEquals;
+    }
+
+    public boolean isNewPasswordDiffCurrent() {
+        return newPasswordDiffCurrent;
+    }
+
+    public void setNewPasswordDiffCurrent(boolean newPasswordDiffCurrent) {
+        this.newPasswordDiffCurrent = newPasswordDiffCurrent;
+    }
+
+    public boolean isAllOk() {
+        return allOk;
+    }
+
+    public void setAllOk(boolean allOk) {
+        this.allOk = allOk;
+    }
+
     
     public String doSave()
     {
-        this.newPassword1 = getSHA512(this.newPassword1);
-        this.userLogin.setPassword(this.newPassword1);
-        this.userFacade.edit(userLogin);
-        return "";
+        this.oldPassword = getSHA512(oldPassword);
+        this.newPassword1 = getSHA512(newPassword1);
+        this.newPassword2 = getSHA512(newPassword2);
+        this.oldPasswordOK = this.userLogin.getPassword().equals(this.oldPassword);
+        this.newPasswordDiffCurrent = !this.userLogin.getPassword().equals(this.newPassword1);
+        this.newPasswordsEquals = this.newPassword1.equals(this.newPassword2);
+        this.allOk = this.oldPasswordOK && this.newPasswordDiffCurrent && this.newPasswordsEquals;
+        
+        if(this.allOk)
+        {
+            this.userLogin.setPassword(this.newPassword1);
+            this.userFacade.edit(userLogin);
+        }   
+        
+        return "changePassword";
     }
     
 }
