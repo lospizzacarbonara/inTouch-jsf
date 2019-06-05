@@ -37,7 +37,7 @@ and open the template in the editor.
                     <fieldset>
                         <legend class="center-legend">
                                 <h:form>
-                                    <h:commandLink action="#{userProfileBean.doProfileUser(user)}" value="#{user.getUsername()}"/>
+                                    <h:commandLink action="#{userProfileUserBean.doUserProfileUser(user)}" value="#{user.getUsername()}"/>
                                     <h:commandButton action="#{searchBean.addFriend(user)}" value="#{msg[searchBean.getFriendButtonText(user)]}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
                                 </h:form>
                         </legend>
