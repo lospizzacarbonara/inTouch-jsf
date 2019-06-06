@@ -228,7 +228,7 @@
                                 </span>
                                 <h3 align="center">  
                                     <h:form>
-                                        <h:commandLink action="#{userProfileBean.doProfileUser(post.getAuthor())}">
+                                        <h:commandLink action="#{userProfileUserBean.doUserProfileUser(post.getAuthor())}">
                                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                                             #{post.getAuthor().getUsername()}
                                         </h:commandLink>
@@ -250,7 +250,7 @@
                                 </span>
                                 <h3 align="center">
                                     <h:form>
-                                        <h:commandLink action="#{userProfileBean.doProfileUser(post.getAuthor())}">
+                                        <h:commandLink action="#{userProfileUserBean.doUserProfileUser(post.getAuthor())}">
                                             <i class="fa fa-user-circle" aria-hidden="true"></i>
                                             #{post.getAuthor().getUsername()}
                                         </h:commandLink>     
@@ -276,9 +276,11 @@
                         <ui:repeat var="pendingFriend" value="#{adminFriendInvitesBean.friendInvites}">
                             <fieldset class="thirdSize">
                                 <legend class="center-legend">
-                                    <h:link outcome="#{userProfileBean.doProfileUser(user)}">
-                                        #{pendingFriend.getUsername()}
-                                    </h:link>
+                                    <h:form>
+                                            <h:commandLink action="#{userProfileUserBean.doUserProfileUser(pendingFriend)}">
+                                            #{pendingFriend.getUsername()}
+                                        </h:commandLink>
+                                    </h:form>  
                                 </legend>
                                 <h:form>
                                     <h:commandButton action="#{friendsBean.accept(user)}" value="Aceptar"/>
