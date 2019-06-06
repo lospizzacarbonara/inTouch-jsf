@@ -39,7 +39,8 @@
                             </th>
                             <td colspan="3">
                                 <!-- el nombre de usuario no se puede modificar -->
-                                <h:inputText id="username" size="28" value="#{userProfileLoginBean.userProfile.id}" disabled="true"/>
+                                <h:inputText id="username" size="28" value="#{userProfileLoginBean.userProfile.id}" 
+                                             disabled="true"/>
                             </td>
                         </tr>
                         <tr class="filaPerfil">
@@ -75,14 +76,14 @@
                         </tr>
                             <tr class="rowButton">
                                 <td colspan="15" >
-                                    <h:commandButton id="modifyPersonalData" value="Modify Personal Data" action="#{userProfileLoginBean.doUserProfileLoginSave()}"/>
+                                    <h:commandButton id="modifyPersonalData" value="Modify Personal Data" 
+                                                     action="#{userProfileLoginBean.doUserProfileLoginSave()}"/>
                                 </td>
                             </tr>
                     </table>
                     <br/>
                 </fieldset>
-            </h:form>
-    
+            </h:form>    
         
         <h:panelGroup layout="block" rendered="#{userProfileLoginBean.userGroups.size()!=0}">  
         <h:form>
@@ -106,27 +107,28 @@
             <h:form id="correoElectronico">
                 <fieldset name="email" class="email">
                     <legend>E-mail</legend>
-                    <table name="correo" class="centradoPerfil">
-                        <tr>
-                            <th class="alineadoDerecha" colspan="15">
-                                E-mail:
-                            </th>
-                            <td>
-                                <h:inputText id="email" class="correoElectronico" size="40" value="#{userProfileLoginBean.userProfile.email}" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td rowspan="2" colspan="15">&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <h:panelGroup layout="block">
-                            <tr class="rowButton">
+                    <fieldset class="email_input">
+                        <table name="correo" class="centradoPerfil">
+                            <tr>
+                                <th class="alineadoDerecha" >
+                                    E-mail:
+                                </th>
                                 <td>
-                                    <h:commandButton id="modifyEmail" value="Modify E-mail" action="#{userProfileLoginBean.doSaveEmail()}" /> 
+                                    <h:inputText id="email" class="correoElectronico" size="40" 
+                                                 value="#{userProfileLoginBean.userProfile.email}" 
+                                                 required="true" requiredMessage="E-mail: Validation Error: Value needed"/>
                                 </td>
-                             </tr>
-                        </h:panelGroup>
-                    </table>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset class="email_button">
+                        <h:commandButton id="modifyEmail" value="Modify E-mail" action="#{userProfileLoginBean.doSaveEmail()}" />
+                    </fieldset>
+                    <h:panelGroup styleClass="#{!email.valid ? 'error' : 'none'}">
+                    <fieldset class="email_error">
+                        <h:message for="email"/>
+                    </fieldset>
+                </h:panelGroup> 
                     <br/>
                     <br/>
                 </fieldset>
