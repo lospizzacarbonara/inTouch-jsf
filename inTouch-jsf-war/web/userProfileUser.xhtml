@@ -9,12 +9,10 @@
     
     
     <h:head>
-        <title>User Profile</title>
+        <title>#{msg['profile.title']}</title>
         <link rel="stylesheet" href="resources/css/navmenu.css" />
         <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/perfil_user.css" />
-        
-        
     </h:head>
     
     <h:body>
@@ -25,7 +23,7 @@
         
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">
-            <h1  align="center">User Profile</h1>
+            <h1  align="center">#{msg['profile.title']}</h1>
         </div>
         <br/>
         
@@ -34,20 +32,20 @@
         al nombre de usuario está deshabilitado -->
         <h:form id="perfilDeUsuario">
             <fieldset name="datosPersonales" class="datos">
-                <legend>Personal Data</legend>
+                <legend>#{msg['profile.personal']}</legend>
                     <table name="datos" class="centradoPerfil">
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" >
-                                <label for="user">Username:</label>
+                                <label for="user">#{msg['profile.username']}:</label>
                             </th>
                             <td  class="alineadoIzquierda">
-                                <!-- el nombre de usuario no se puede modificar -->
+                                
                                 <h:outputFormat id="username"  value="#{userProfileUserBean.userProfile.username}" />
                             </td>
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" >
-                                <label for="name">Name:</label>
+                                <label for="name">#{msg['profile.name']}:</label>
                             </th>
                             <td  class="alineadoIzquierda">
                                 <h:outputFormat id="name"  value="#{userProfileUserBean.userProfile.name}" />
@@ -55,7 +53,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" >
-                                <label for="surname">Surname:</label>
+                                <label for="surname">#{msg['profile.surname']}:</label>
                             </th>
                             <td  class="alineadoIzquierda">
                                 <h:outputFormat id="surname"  value="#{userProfileUserBean.userProfile.surname}"  />
@@ -63,7 +61,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha">
-                                Birthdate (aaaa/mm/dd):
+                                #{msg['profile.birthdate']} (aaaa/mm/dd):
                             </th>
                             <td class="alineadoIzquierda">
                                 <h:outputFormat id="birthdate" value="#{userProfileUserBean.userProfile.birthdate}" >
@@ -74,7 +72,9 @@
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" ></th>
                             <td class="alineadoIzquierda">
-                                <h:outputFormat value="#{userProfileUserBean.userProfile.name} is my friend" rendered="#{userProfileUserBean.userFriend}"/>
+                                <h:outputFormat value="#{userProfileUserBean.userProfile.name}" rendered="#{userProfileUserBean.userFriend}"/>
+                                <h:outputFormat value=" #{msg['profile.friend']}" rendered="#{userProfileUserBean.userFriend}"/>
+                                 
                             </td>
                         </tr>
                     </table>
@@ -86,11 +86,11 @@
         <h:panelGroup layout="block" rendered="#{userProfileUserBean.userGroups.size()!=0}">  
             <h:form>
                 <fieldset class="#{userProfileUserBean.userFriend ? 'groups' : 'groupsNoFriend'}">
-                    <legend>Groups</legend>
+                    <legend>#{msg['profile.groups']}</legend>
                     <h:dataTable id="commonGroups" value="#{userProfileUserBean.userGroups}"  var="group" 
                              columnClasses="columnHeader,columnHeader2, columnGroups">
                         <h:column >
-    				<f:facet name="header">Groups in common:</f:facet>
+    				<f:facet name="header">#{msg['profile.groupsInCommon']}:</f:facet>
                         </h:column>
                         <h:column >
                                 <f:facet name="header"></f:facet>
@@ -99,11 +99,11 @@
                     </h:dataTable>
                 </fieldset>
                 <fieldset name="email" class="#{userProfileUserBean.userFriend ? 'email' : 'notemail'}">
-                    <legend>#{userProfileUserBean.userFriend ? 'E-mail' : ''}</legend>
+                    <legend>#{userProfileUserBean.userFriend ? "E-mail" : ''}</legend>
                     <table name="correo" class="centradoPerfil">
                         <tr>
                             <th class="alineadoDerecha" colspan="15">
-                                #{userProfileUserBean.userFriend ? 'E-mail:' : ''}
+                                #{userProfileUserBean.userFriend ? "E-mail" : ''}
                             </th>
                             <td>
                                 <h:outputFormat id="email"  value="#{userProfileUserBean.userProfile.email}" rendered="#{userProfileUserBean.userFriend}"/>

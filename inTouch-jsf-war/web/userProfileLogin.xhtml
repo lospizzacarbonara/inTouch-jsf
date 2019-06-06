@@ -8,7 +8,7 @@
     
     
     <h:head>
-        <title>User Profile</title>
+        <title>#{msg['profile.title']}</title>
         <link rel="stylesheet" href="resources/css/navmenu.css" />
         <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/perfil.css" />        
@@ -22,7 +22,7 @@
         
         <!-- Titulo de la página  -->
         <div name="titulo" class="tituloPerfil">
-            <h1  align="center">User Profile</h1>
+            <h1  align="center">#{msg['profile.title']}</h1>
         </div>
         <br/>
         
@@ -31,11 +31,11 @@
         al nombre de usuario está deshabilitado -->
         <h:form id="perfilDeUsuario">
             <fieldset name="datosPersonales" class="datos">
-                <legend>Personal Data</legend>
+                <legend>#{msg['profile.personal']}</legend>
                     <table name="datos" class="centradoPerfil">
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="user">Username:</label>
+                                <label for="user">#{msg['profile.username']}:</label>
                             </th>
                             <td colspan="3">
                                 <!-- el nombre de usuario no se puede modificar -->
@@ -45,7 +45,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="name">Name:</label>
+                                <label for="name">#{msg['profile.name']}:</label>
                             </th>
                             <td colspan="3">
                                 <h:inputText id="name" size="28" value="#{userProfileLoginBean.userProfile.name}"/>
@@ -53,7 +53,7 @@
                         </tr>
                         <tr class="filaPerfil">
                             <th class="alineadoDerecha" colspan="15">
-                                <label for="surname">Surname:</label>
+                                <label for="surname">#{msg['profile.surname']}:</label>
                             </th>
                             <td colspan="3">
                                 <h:inputText id="surname" size="28" value="#{userProfileLoginBean.userProfile.surname}"/>
@@ -62,7 +62,7 @@
                         
                         <tr>
                             <th class="alineadoDerecha" colspan="15">
-                                Birthdate (aaaa/mm/dd):
+                                #{msg['profile.birthdate']} (aaaa/mm/dd):
                             </th>
                             <td colspan="3" style="text-align: left">
                                 <h:inputText id="birthdate" value="#{userProfileLoginBean.userProfile.birthdate}">
@@ -76,7 +76,7 @@
                         </tr>
                             <tr class="rowButton">
                                 <td colspan="15" >
-                                    <h:commandButton id="modifyPersonalData" value="Modify Personal Data" 
+                                    <h:commandButton id="modifyPersonalData" value="#{msg['profile.buttonSavePersonal']}" 
                                                      action="#{userProfileLoginBean.doUserProfileLoginSave()}"/>
                                 </td>
                             </tr>
@@ -88,11 +88,11 @@
         <h:panelGroup layout="block" rendered="#{userProfileLoginBean.userGroups.size()!=0}">  
         <h:form>
             <fieldset class="groups">
-                <legend>Groups</legend>
+                <legend>#{msg['profile.groups']}</legend>
                 <h:dataTable id="commonGroups" value="#{userProfileLoginBean.userGroups}"  var="group" 
                              columnClasses="columnHeader, columnGroups">
                     <h:column>
-    				<f:facet name="header">Groups:</f:facet>
+    				<f:facet name="header">#{msg['profile.groups']}:</f:facet>
                     </h:column>
                     <h:column >
                                 <f:facet name="header"></f:facet>
@@ -106,23 +106,23 @@
         
             <h:form id="correoElectronico">
                 <fieldset name="email" class="email">
-                    <legend>E-mail</legend>
+                    <legend>#{msg['profile.email']}</legend>
                     <fieldset class="email_input">
                         <table name="correo" class="centradoPerfil">
                             <tr>
                                 <th class="alineadoDerecha" >
-                                    E-mail:
+                                    #{msg['profile.email']}:
                                 </th>
                                 <td>
                                     <h:inputText id="email" class="correoElectronico" size="40" 
                                                  value="#{userProfileLoginBean.userProfile.email}" 
-                                                 required="true" requiredMessage="E-mail: Validation Error: Value needed"/>
+                                                 required="true" requiredMessage="#{msg['profile.emailRequired']}"/>
                                 </td>
                             </tr>
                         </table>
                     </fieldset>
                     <fieldset class="email_button">
-                        <h:commandButton id="modifyEmail" value="Modify E-mail" action="#{userProfileLoginBean.doSaveEmail()}" />
+                        <h:commandButton id="modifyEmail" value="#{msg['profile.buttonSaveEmail']}" action="#{userProfileLoginBean.doSaveEmail()}" />
                     </fieldset>
                     <h:panelGroup styleClass="#{!email.valid ? 'error' : 'none'}">
                     <fieldset class="email_error">
@@ -138,9 +138,9 @@
         <!--  Botón para ir a la opción de cambio de contraseña -->  
         <h:panelGroup layout="block" > 
             <fieldset name="seguridad" class="seguridad">
-                <legend>Password</legend>
+                <legend>#{msg['profile.password']}</legend>
                 <h:form id="claveDeUsuario">
-                    <h:button id="changePassword" value="Change password" outcome="changePassword" />
+                    <h:button id="changePassword" value="#{msg['profile.buttonPassword']}" outcome="changePassword" />
                 </h:form>
             </fieldset>
         </h:panelGroup> 
