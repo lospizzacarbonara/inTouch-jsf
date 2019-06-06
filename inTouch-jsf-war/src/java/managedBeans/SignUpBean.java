@@ -36,6 +36,8 @@ protected String name;
 protected String surname;
 protected String email;
 protected String fecha;
+protected String cpassword;
+protected String msgCheck;
     /**
      * Creates a new instance of SignUpBean
      */
@@ -46,6 +48,7 @@ protected String fecha;
         this.surname="";
         this.email="";
         this.fecha="";
+        this.cpassword="";
     }
 
     public String getName() {
@@ -95,6 +98,24 @@ protected String fecha;
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+    public String getCpassword() {
+        return cpassword;
+    }
+
+    public void setCpassword(String cPassword) {
+        this.cpassword = cPassword;
+    }
+
+    public String getMsgCheck() {
+        return msgCheck;
+    }
+
+    public void setMsgCheck(String msgCheck) {
+        this.msgCheck = msgCheck;
+    }
+    
+    
     
     public String doSignUp(){
      User usuario= new User(0, userName, getSHA512(password),"");
@@ -113,5 +134,13 @@ protected String fecha;
      this.userFacade.create(usuario);
        
     return "login";
+    }
+    
+    public void doCheckPassword(){
+        if (!this.cpassword.equals(password)) {
+            this.msgCheck = "¡Las contraseñas no coinciden!";
+        } else {
+            this.msgCheck = "";
+        }
     }
 }

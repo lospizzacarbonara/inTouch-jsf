@@ -6,8 +6,9 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
         <title>SignUp inTouch</title>
         <link rel="stylesheet" href="resources/css/inTouch.css"/>
         <link rel="stylesheet" href="resources/css/perfil.css"/>
@@ -17,8 +18,8 @@ and open the template in the editor.
                 font-size: 12px;
             }
         </style>
-    </head>
-    <body>
+    </h:head>
+    <h:body>
         <h1 align="center">¡Registrate aqui!</h1>
         <br/>
         <h2 align="center">Introduzca los datos de usuario:</h2>
@@ -36,17 +37,28 @@ and open the template in the editor.
                 <br/>
                 <br/>
                 
-                <div class="littleText">
+                 <div class="littleText">
                   *Este nombre de usuario no puede ser cambiado mas adelante
                  </div>
                 *Nombre de usuario: <h:inputText value="#{signUpBean.userName}" required="true" requiredMessage="El nombre de usuario es obligatorio" />  <br/>
                 <br/>
-                *Contraseña: <h:inputSecret value="#{signUpBean.password}" required="true" requiredMessage="La contraseña es obligatoria"/> <br/>
+                 
+                *Contraseña: <h:inputSecret id="password" value="#{signUpBean.password}" required="true" requiredMessage="La contraseña es obligatoria"/> <br/>
+                <br/>
+                Repetir Contraseña: <h:inputSecret id="cPassword" value="#{signUpBean.cpassword}" required="true" requiredMessage="Es necesario confirmar la contraseña">
+                  <f:ajax execute="password cPassword" render="comparacion"
+                          listener="#{signUpBean.doCheckPassword()}" event="keyup"/>
+                </h:inputSecret> 
+                <br/>
+                <h:outputText id="comparacion" value="#{signUpBean.msgCheck}"/>
+                <br/>
                 <br/>
                 *Email: <h:inputText value="#{signUpBean.email}" required="true" requiredMessage="El email es obligatorio"/>  <br/>
                 <br/>
                 <h:commandButton value="Registrarse" action="#{signUpBean.doSignUp()}"/> <br/>
             </div>
-        </h:form>   
-    </body>
+        </h:form>
+        <br/>
+        <h5 align="center" >Los campos marcados con * son obligatorios</h5>
+    </h:body>
 </html>
