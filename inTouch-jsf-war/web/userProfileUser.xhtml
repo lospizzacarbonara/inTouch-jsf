@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     
     
     
@@ -11,7 +12,7 @@
         <title>User Profile</title>
         <link rel="stylesheet" href="resources/css/navmenu.css" />
         <link rel="stylesheet" href="resources/css/inTouch.css" />
-        <link rel="stylesheet" href="resources/css/perfil.css" />
+        <link rel="stylesheet" href="resources/css/perfil_user.css" />
         
         
     </h:head>
@@ -36,48 +37,44 @@
                 <legend>Personal Data</legend>
                     <table name="datos" class="centradoPerfil">
                         <tr class="filaPerfil">
-                            <th class="alineadoDerecha" colspan="15">
+                            <th class="alineadoDerecha" >
                                 <label for="user">Username:</label>
                             </th>
-                            <td colspan="3">
+                            <td  class="alineadoIzquierda">
                                 <!-- el nombre de usuario no se puede modificar -->
-                                <h:inputText id="username" size="28" value="#{userProfileUserBean.userProfile.username}" disabled="true"/>
+                                <h:outputFormat id="username"  value="#{userProfileUserBean.userProfile.username}" />
                             </td>
                         </tr>
                         <tr class="filaPerfil">
-                            <th class="alineadoDerecha" colspan="15">
+                            <th class="alineadoDerecha" >
                                 <label for="name">Name:</label>
                             </th>
-                            <td colspan="3">
-                                <h:inputText id="name" size="28" value="#{userProfileUserBean.userProfile.name}" disabled="true" />
+                            <td  class="alineadoIzquierda">
+                                <h:outputFormat id="name"  value="#{userProfileUserBean.userProfile.name}" />
                             </td>
                         </tr>
                         <tr class="filaPerfil">
-                            <th class="alineadoDerecha" colspan="15">
+                            <th class="alineadoDerecha" >
                                 <label for="surname">Surname:</label>
                             </th>
-                            <td colspan="3">
-                                <h:inputText id="surname" size="28" value="#{userProfileUserBean.userProfile.surname}"  disabled="true"/>
+                            <td  class="alineadoIzquierda">
+                                <h:outputFormat id="surname"  value="#{userProfileUserBean.userProfile.surname}"  />
                             </td>
                         </tr>
-                        
-                        <tr>
-                            <th class="alineadoDerecha" colspan="15">
+                        <tr class="filaPerfil">
+                            <th class="alineadoDerecha">
                                 Birthdate (aaaa/mm/dd):
                             </th>
-                            <td colspan="3" style="text-align: left">
-                                <h:inputText id="birthdate" value="#{userProfileUserBean.userProfile.birthdate}" disabled="true">
+                            <td class="alineadoIzquierda">
+                                <h:outputFormat id="birthdate" value="#{userProfileUserBean.userProfile.birthdate}" >
                                     <f:convertDateTime pattern="yyyy/MM/dd" />
-                                </h:inputText>  <br/>
+                                </h:outputFormat>  <br/>
                             </td>
                         </tr>
-                        <tr>
-                            <td rowspan="2" colspan="15">&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr class="rowButton">
-                            <td colspan="30" >
-                                <h:outputText value="#{userProfileUserBean.userProfile.name} is my friend" rendered="#{userProfileUserBean.userFriend}"/>
+                        <tr class="filaPerfil">
+                            <th class="alineadoDerecha" ></th>
+                            <td class="alineadoIzquierda">
+                                <h:outputFormat value="#{userProfileUserBean.userProfile.name} is my friend" rendered="#{userProfileUserBean.userFriend}"/>
                             </td>
                         </tr>
                     </table>
@@ -85,39 +82,31 @@
                 </fieldset>
             </h:form>
         
-        <!-- hay que arreglar lo de buscar grupos -->
+        
         <h:panelGroup layout="block" rendered="#{userProfileUserBean.userGroups.size()!=0}">  
-        <h:form>
-            <fieldset class="groups">
-                <legend>Groups</legend>
-                <h:dataTable id="commonGroups" value="#{userProfileUserBean.userGroups}"  var="group" 
+            <h:form>
+                <fieldset class="#{userProfileUserBean.userFriend ? 'groups' : 'groupsNoFriend'}">
+                    <legend>Groups</legend>
+                    <h:dataTable id="commonGroups" value="#{userProfileUserBean.userGroups}"  var="group" 
                              columnClasses="columnHeader,columnHeader2, columnGroups">
-                    <h:column >
+                        <h:column >
     				<f:facet name="header">Groups in common:</f:facet>
-                    </h:column>
-                    <h:column >
+                        </h:column>
+                        <h:column >
                                 <f:facet name="header"></f:facet>
     				#{group.name}
-                    </h:column>
-                </h:dataTable>
-            </fieldset>
-        </h:form>
-    </h:panelGroup>
-
-        <!--Opción para realizar el cambio del correo electronico asociado a la cuenta del
-        usario--> 
-        
-        <!-- si es mi perfil o es de un amigo -->
-            <h:form id="correoElectronico">
-                <fieldset name="email" class="email">
-                    <legend>E-mail</legend>
+                        </h:column>
+                    </h:dataTable>
+                </fieldset>
+                <fieldset name="email" class="#{userProfileUserBean.userFriend ? 'email' : 'notemail'}">
+                    <legend>#{userProfileUserBean.userFriend ? 'E-mail' : ''}</legend>
                     <table name="correo" class="centradoPerfil">
                         <tr>
                             <th class="alineadoDerecha" colspan="15">
-                                E-mail:
+                                #{userProfileUserBean.userFriend ? 'E-mail:' : ''}
                             </th>
                             <td>
-                                <h:inputText id="email" class="correoElectronico" size="40" value="#{userProfileUserBean.userProfile.email}" disabled="true"/>
+                                <h:outputFormat id="email"  value="#{userProfileUserBean.userProfile.email}" rendered="#{userProfileUserBean.userFriend}"/>
                             </td>
                         </tr>
                     </table>
@@ -125,7 +114,7 @@
                     <br/>
                 </fieldset>
             </h:form>
-     
+        </h:panelGroup>
     </h:body>
 </html>
 

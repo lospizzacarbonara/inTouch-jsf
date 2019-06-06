@@ -1,0 +1,84 @@
+div.tituloPerfil
+{
+    color: purple;
+    background-color:  #ece3dd; 
+    margin-top: 0ex;
+    margin-bottom: 0ex;
+    padding-top: 0ex;
+    padding-bottom: 0ex;
+    border-radius: 8px;
+}
+fieldset
+{
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    text-align: center;
+    margin: auto auto;
+}
+fieldset.datos
+{
+    top: 
+        9em;
+    height: 13em;
+}
+fieldset.email
+{
+    top: 24em;
+    height: 4em;
+}
+fieldset.notemail
+{
+    top: 23em;
+    height: 5em;
+    border: 0;
+}
+fieldset.groups
+{
+    top: 30em;
+}
+fieldset.groupsNoFriend
+{
+    top: 23em;
+}
+td
+{
+    width: 1em;
+}
+table.centradoPerfil
+{
+    position: absolute;
+    top: 2em;
+    left: 25%;
+}
+th.alineadoDerecha
+{
+    text-align: right;
+    vertical-align: bottom;
+}
+td.alineadoIzquierda
+{
+    text-align: left;
+    vertical-align: bottom;
+}
+tr.filaPerfil
+{
+    height: 2em;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+tr.rowButton
+{
+    text-align: left;
+}
+.columnHeader
+{
+    width: 10em;
+}.columnHeader2
+{
+    width: 20em;
+}
+.columnGroups
+{
+    width: 50em;
+}
