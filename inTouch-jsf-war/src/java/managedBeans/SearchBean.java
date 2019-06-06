@@ -193,13 +193,13 @@ public class SearchBean implements Serializable{
          
         switch (friendStatus) {
             case friends:
-                res = "alreadyFriend";
+                res = "search.alreadyFriend";
                 break;
             case pending:
-                res = "petitionSent";
+                res = "search.petitionSent";
                 break;
             default:
-                res = "addFriend";
+                res = "search.addFriend";
                 break;
         }
         
@@ -212,13 +212,13 @@ public class SearchBean implements Serializable{
          
         switch (memberStatus) {
             case member:
-                res = "alreadyMember";
+                res = "search.alreadyMember";
                 break;
             case pending:
-                res = "petitionSent";
+                res = "search.petitionSent";
                 break;
             default:
-                res = "joinGroup";
+                res = "search.joinGroup";
                 break;
         }
         

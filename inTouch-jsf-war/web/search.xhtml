@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>#{msg['title']}</title>
+        <title>#{msg['search.title']}</title>
         <link rel="stylesheet" href="resources/css/inTouch.css" />
         <link rel="stylesheet" href="resources/css/navmenu.css" />
         <link rel="stylesheet" href="resources/css/friends.css" />
@@ -22,8 +22,8 @@ and open the template in the editor.
         <h:panelGroup>
             <h:form>
                 <fieldset>
-                     <legend>#{msg['userSearch']}</legend>
-                     Search: <h:inputText id="textbox" value="#{searchBean.searchText}">
+                     <legend>#{msg['search.userSearch']}</legend>
+                     #{msg['search.search']}: <h:inputText id="textbox" value="#{searchBean.searchText}">
                          <f:ajax event="keyup" execute="textbox" listener="#{searchBean.search()}" render="friends groups"/>
                      </h:inputText><br/>
                  </fieldset>
@@ -32,7 +32,7 @@ and open the template in the editor.
         <!-- Friends -->
         <h:panelGroup id="friends" layout="block" style="text-align:center">
             <fieldset>
-                <legend>#{msg['users']}</legend> 
+                <legend>#{msg['search.users']}</legend> 
                 <ui:repeat var="user" value="#{searchBean.userList}">
                     <fieldset class="card">
                         <legend class="center-legend">
@@ -47,14 +47,14 @@ and open the template in the editor.
                 </ui:repeat>
                 <!-- No Friends -->
                 <h:panelGroup layout="block" rendered="#{searchBean.userList.isEmpty()}">
-                    <p>#{msg['noResultFound']}</p>
+                    <p>#{msg['search.noResultFound']}</p>
                 </h:panelGroup>
             </fieldset>
         </h:panelGroup>
         <!-- Groups -->
         <h:panelGroup id="groups" layout="block" style="text-align:center">
             <fieldset>
-                <legend>#{msg['groups']}</legend> 
+                <legend>#{msg['search.groups']}</legend> 
                 <ui:repeat var="group" value="#{searchBean.groupList}">
                     <h:form>
                         <fieldset class="card">
@@ -69,7 +69,7 @@ and open the template in the editor.
                 </ui:repeat>
                 <!-- No Groups -->
                 <h:panelGroup layout="block" rendered="#{searchBean.groupList.isEmpty()}">
-                        <p>#{msg['noResultFound']}</p>
+                        <p>#{msg['search.noResultFound']}</p>
                 </h:panelGroup>
             </fieldset><br/>
         </h:panelGroup>
