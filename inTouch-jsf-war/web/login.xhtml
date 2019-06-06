@@ -7,31 +7,31 @@
         <style type="text/css">
             #Error {color: red}
         </style>
-        <title>Login inTouch</title>
+        <title>#{msg['login.title']}</title>
     </h:head>
     <h:body>
-        <h1 align="center">¡Bienvenido a inTouch!</h1>
+        <h1 align="center">#{msg['login.welcome']}</h1>
         <br/>
-        <h2 align="center">Introduzca los datos de usuario:</h2>
+        <h2 align="center">#{msg['login.userData']}</h2>
         <h:form>
             <div align="center">
-                Nombre de usuario: <h:inputText value="#{loginBean.userName}" required="true" requiredMessage="Es obligatorio introducir el nombre de usuario" />  <br/>
+                #{msg['login.userName']} <h:inputText value="#{loginBean.userName}" required="true" requiredMessage="#{msg['login.obligatorioUserName']} "/>  <br/>
                 <br/>
-                Contraseña: <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage="Es obligatorio introducir la contraseña" /> <br/>
+                #{msg['login.password']} <h:inputSecret value="#{loginBean.password}" required="true" requiredMessage=" #{msg['login.obligatorioPassword']} "/> <br/>
                 <br/>
-                <h:commandButton value="Iniciar" action="#{loginBean.doLogin()}"/> <br/>
+                <h:commandButton value="#{msg['login.login']}" action="#{loginBean.doLogin()}"/> <br/>
             </div>
         </h:form>
         <h:form>
-            <h3 align="center"> &oacute; </h3>  
-            <h2 align="center">Registrate en nuestra aplicación</h2>
+            <h3 align="center"> #{msg['login.o']} </h3>  
+            <h2 align="center">#{msg['login.registrate']}</h2>
             <div align="center">
-            <h:commandButton value="Registrarse" action="#{loginBean.doSignUp()}"/> <br/>
+                <h:commandButton value="#{msg['login.signup']}" action="#{loginBean.doSignUp()}"/> <br/>
             </div>
             <h:panelGroup rendered="#{loginBean.loginError}" styleClass="errorMsg">
                 <br/>
                 <p id="Error" align="center">
-                 CONTRASEÑA O USUARIO INCORRECTOS 
+                 #{msg['login.error']}
                 </p>
                 <br/>
             </h:panelGroup>
