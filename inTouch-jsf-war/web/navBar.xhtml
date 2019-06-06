@@ -19,11 +19,11 @@
                     <li><h:link outcome="search" value="Search"/></li>
                     <li><h:commandLink action="#{loginBean.doLogOut()}" value="Log out"/></li>
                     <li>
-                        <h:selectOneMenu id="selectLang" class="navSel" value="#{langBean.selected}">
+                        <h:selectOneMenu id="selectLang" class="navSel" value="#{langBean.language}">
                             <f:selectItem itemLabel="Language" itemValue="null"/>
                             <f:selectItem itemLabel="English" itemValue="en"/>
                             <f:selectItem itemLabel="Spanish" itemValue="es"/>
-                            <f:ajax event="change" render="@all" execute="selectLang" listener="#{langBean.changeLocale()}"/>
+                            <f:ajax event="change" execute="selectLang" render="@all" listener="#{langBean.changeLanguage()}"/>
                         </h:selectOneMenu>
                     </li>
                 </ul>

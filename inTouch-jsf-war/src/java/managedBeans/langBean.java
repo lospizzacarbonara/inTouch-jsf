@@ -8,9 +8,13 @@ package managedBeans;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  *
@@ -20,28 +24,51 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class langBean implements Serializable {
     
-    private String selected;
-    /**
-     * Creates a new instance of langBean
-     */
-    public langBean() {
+private static final long serialVersionUID = 1L;
+	
+  private final static Locale ENGLISH = new Locale("en");
+  private final static Locale SPANISH = new Locale("es");
+  private Locale currentLocale; 
+  private String language;
+  
+  public Locale getCurrentLocale() {
+    return(currentLocale);
+  }
+
+    public String getLanguage() {
+        return language;
     }
 
-    public String getSelected() {
-        return selected;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
-    public void setSelected(String selected) {
-        this.selected = selected;
+  public String setEnglish() {
+    currentLocale=ENGLISH;
+    changeLocale();
+    return null;
+  }
+  
+  public String setSpanish() {
+    currentLocale=SPANISH;
+    changeLocale();    
+    return null;
+  }
+  
+  private void changeLocale () {
+      FacesContext.getCurrentInstance().getViewRoot().setLocale(currentLocale);
+  }
+  
+  public String changeLanguage() {
+    switch(language) {
+        case "en":
+            setEnglish();
+            break;
+        case "es":
+            setSpanish();
+            break;
     }
-    
-    @PostConstruct
-    private void init() {
-        FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale("en"));
-    }
-    
-    public void changeLocale() {
-        if (selected != null && selected.equals("null"))
-            FacesContext.getCurrentInstance().getViewRoot().setLocale(new Locale(selected));
-    }
+    return null;
+  }
+  
 }
