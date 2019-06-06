@@ -34,7 +34,7 @@ and open the template in the editor.
             <fieldset>
                 <legend>#{msg['users']}</legend> 
                 <ui:repeat var="user" value="#{searchBean.userList}">
-                    <fieldset>
+                    <fieldset class="card">
                         <legend class="center-legend">
                                 <h:form>
                                     <h:commandLink action="#{userProfileUserBean.doUserProfileUser(user)}" value="#{user.getUsername()}"/>
@@ -42,7 +42,7 @@ and open the template in the editor.
                                 </h:form>
                         </legend>
                         <h:outputText value="#{searchBean.getPost(user)}" escape="false"/>
-                    </fieldset>
+                    </fieldset><br/>
 
                 </ui:repeat>
                 <!-- No Friends -->
@@ -57,7 +57,7 @@ and open the template in the editor.
                 <legend>#{msg['groups']}</legend> 
                 <ui:repeat var="group" value="#{searchBean.groupList}">
                     <h:form>
-                        <fieldset>
+                        <fieldset class="card">
                             <legend class="center-legend">
                                     <h:link outcome="search" value="#{group.getName()}"/>
 
@@ -71,7 +71,7 @@ and open the template in the editor.
                 <h:panelGroup layout="block" rendered="#{searchBean.groupList.isEmpty()}">
                         <p>#{msg['noResultFound']}</p>
                 </h:panelGroup>
-            </fieldset>
+            </fieldset><br/>
         </h:panelGroup>
     </h:body>
 </html>
