@@ -15,8 +15,8 @@
                 <ul>
                     <li><a href="/inTouch-jsf-war/wall.jsf">Home</a></li>
                     <li><h:commandLink action="#{userProfileLoginBean.doUserProfileLogin()}" value="Profile"/></li>
-                    <li><a href="/inTouch-jsf-war/friends.jsf">Friends</a></li>
-                    <li><a href="/inTouch-jsf-war/search.jsf">Search</a></li>
+                    <li><h:link outcome="friends" value="Friends"/></li>
+                    <li><h:link outcome="search" value="Search"/></li>
                     <li><h:commandLink action="#{loginBean.doLogOut()}" value="Log out"/></li>
                     <li>
                         <h:selectOneMenu id="selectLang" class="navSel" value="#{langBean.selected}">
