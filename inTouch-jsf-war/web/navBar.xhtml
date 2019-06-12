@@ -18,11 +18,12 @@
                     <li><h:link outcome="friends" value="#{msg['navbar.friends']}"/></li>
                     <li><h:link outcome="search" value="#{msg['navbar.search']}"/></li>
                     <li><h:commandLink action="#{loginBean.doLogOut()}" value="#{msg['navbar.logout']}"/></li>
+                   
                     <li>
                         <h:selectOneMenu id="selectLang" class="navSel" value="#{langBean.language}">
                             <f:selectItem itemLabel="#{msg['navbar.language']}" itemValue="null"/>
-                            <f:selectItem itemLabel="English" itemValue="en"/>
-                            <f:selectItem itemLabel="Spanish" itemValue="es"/>
+                            <f:selectItem itemLabel="#{msg['navbar.english']}" itemValue="en"/>
+                            <f:selectItem itemLabel="#{msg['navbar.spanish']}" itemValue="es"/>
                             <f:ajax event="change" execute="selectLang" render="@all" listener="#{langBean.changeLanguage()}"/>
                         </h:selectOneMenu>
                     </li>
