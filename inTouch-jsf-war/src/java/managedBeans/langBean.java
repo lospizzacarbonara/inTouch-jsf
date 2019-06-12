@@ -31,7 +31,9 @@ private static final long serialVersionUID = 1L;
   }
 
     public String getLanguage() {
+        this.changeLocale();
         return language;
+        
     }
 
     public void setLanguage(String language) {
