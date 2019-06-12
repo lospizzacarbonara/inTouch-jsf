@@ -13,14 +13,14 @@
             <h:form id="navBar">
             <div id="menu">
                 <ul>
-                    <li><a href="/inTouch-jsf-war/wall.jsf">Home</a></li>
-                    <li><h:commandLink action="#{userProfileLoginBean.doUserProfileLogin()}" value="Profile"/></li>
-                    <li><h:link outcome="friends" value="Friends"/></li>
-                    <li><h:link outcome="search" value="Search"/></li>
-                    <li><h:commandLink action="#{loginBean.doLogOut()}" value="Log out"/></li>
+                    <li><a href="/inTouch-jsf-war/wall.jsf">#{msg['navbar.home']}</a></li>
+                    <li><h:commandLink action="#{userProfileLoginBean.doUserProfileLogin()}" value="#{msg['navbar.profile']}"/></li>
+                    <li><h:link outcome="friends" value="#{msg['navbar.friends']}"/></li>
+                    <li><h:link outcome="search" value="#{msg['navbar.search']}"/></li>
+                    <li><h:commandLink action="#{loginBean.doLogOut()}" value="#{msg['navbar.logout']}"/></li>
                     <li>
                         <h:selectOneMenu id="selectLang" class="navSel" value="#{langBean.language}">
-                            <f:selectItem itemLabel="Language" itemValue="null"/>
+                            <f:selectItem itemLabel="#{msg['navbar.language']}" itemValue="null"/>
                             <f:selectItem itemLabel="English" itemValue="en"/>
                             <f:selectItem itemLabel="Spanish" itemValue="es"/>
                             <f:ajax event="change" execute="selectLang" render="@all" listener="#{langBean.changeLanguage()}"/>
