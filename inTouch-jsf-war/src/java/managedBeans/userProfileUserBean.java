@@ -10,10 +10,11 @@ import inTouch.ejb.MembershipFacade;
 import inTouch.ejb.UserFacade;
 import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
@@ -21,8 +22,8 @@ import javax.inject.Inject;
  * @author avila
  */
 @Named(value = "userProfileUserBean")
-@RequestScoped
-public class userProfileUserBean {
+@SessionScoped
+public class userProfileUserBean implements Serializable{
     
     @EJB
     private MembershipFacade membershipFacade;
