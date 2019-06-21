@@ -46,11 +46,14 @@ public class SocialGroupSearchBean implements Serializable{
 
     @Inject
     LoginBean loginBean;
+    @Inject
+    SocialGroupBean socialGroupBean;
     
     protected String searchText;
     protected List<User> userList;
     protected Map<User, Object[]> userData;
     protected User loggedUser;
+    protected SocialGroup socialGroup;
     protected List<SocialGroup> groupList;
     protected Map<SocialGroup, Object[]> groupData;
     
@@ -126,12 +129,12 @@ public class SocialGroupSearchBean implements Serializable{
     
     @PostConstruct
     public void init() {
-        loggedUser = loginBean.getUser();
+        socialGroup = socialGroupBean.getSocialGroup();
         
         List<User> findUser = this.userFacade.findByUsername(searchText);
         userData = new TreeMap<User, Object[]>();
-        List<User> friends = this.userFacade.findFriends(loggedUser);
-        List<User> pendingFriends = this.userFacade.findPendingFriends(loggedUser);
+        List<User> friends = this.groupFacade.getMembers(socialGroup);
+        List<User> pendingFriends = this.groupFacade.getPendingMembers(socialGroup);
 
         for (User u: findUser) {
             Object[] data = new Object[2];

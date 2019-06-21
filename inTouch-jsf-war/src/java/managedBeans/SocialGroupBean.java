@@ -43,9 +43,9 @@ public class SocialGroupBean implements Serializable {
     protected List<Post> groupPostList;
     
     
-    public String doSelectGroup(SocialGroup socg){
+    public String doSelectGroup(int id){
         
-        SocialGroup sg = this.socialGroupFacade.find(socg.getId());
+        SocialGroup sg = this.socialGroupFacade.find(id);
         socialGroup=sg;
         groupPostList=this.postFacade.getGroupPost(sg);
         userList=this.userFacade.getUserList(sg);
