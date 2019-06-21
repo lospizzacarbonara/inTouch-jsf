@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msg['search.title']}</title>
+        <link rel="stylesheet" href="resources/css/inTouch.css" />
+        <link rel="stylesheet" href="resources/css/navmenu.css" />
+        <link rel="stylesheet" href="resources/css/friends.css" />
+    </h:head>
+    <h:body>
+        <ui:insert name="header" >
+            <ui:include src="navBar.xhtml"/>
+	</ui:insert>
+        <h:panelGroup>
+            <h:form>
+                <fieldset>
+                     <legend>#{msg['search.userSearch']}</legend>
+                     #{msg['search.search']}: <h:inputText id="textbox" value="#{searchBean.searchText}">
+                         <f:ajax event="keyup" execute="textbox" listener="#{searchBean.search()}" render="friends groups"/>
+                     </h:inputText><br/>
+                 </fieldset>
+            </h:form>
+        </h:panelGroup>
+        <!-- Friends -->
+        <h:panelGroup id="friends" layout="block" style="text-align:center">
+            <fieldset>
+                <legend>#{msg['search.users']}</legend> 
+                <ui:repeat var="user" value="#{searchBean.userList}">
+                    <fieldset class="card">
+                        <legend class="center-legend">
+                                <h:form>
+                                    <h:commandLink action="#{userProfileUserBean.doUserProfileUser(user)}" value="#{user.getUsername()}"/>
+                                    <h:commandButton action="#{searchBean.addFriend(user)}" value="#{msg[searchBean.getFriendButtonText(user)]}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
+                                </h:form>
+                        </legend>
+                        <h:outputText value="#{searchBean.getPost(user)}" escape="false"/>
+                    </fieldset><br/>
+
+                </ui:repeat>
+                <!-- No Friends -->
+                <h:panelGroup layout="block" rendered="#{searchBean.userList.isEmpty()}">
+                    <p>#{msg['search.noResultFound']}</p>
+                </h:panelGroup>
+            </fieldset>
+        </h:panelGroup>
+        <!-- Groups -->
+        <h:panelGroup id="groups" layout="block" style="text-align:center">
+            <fieldset>
+                <legend>#{msg['search.groups']}</legend> 
+                <ui:repeat var="group" value="#{searchBean.groupList}">
+                    <h:form>
+                        <fieldset class="card">
+                            <legend class="center-legend">
+                                    <h:link outcome="search" value="#{group.getName()}"/>
+
+                                    <h:commandButton action="#{searchBean.joinGroup(group)}" value="#{msg[searchBean.getGroupButtonText(group)]}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
+                            </legend>
+                            <h:outputText value="#{searchBean.getPostGroup(group)}" escape="false"/>
+                        </fieldset>
+                    </h:form>
+                </ui:repeat>
+                <!-- No Groups -->
+                <h:panelGroup layout="block" rendered="#{searchBean.groupList.isEmpty()}">
+                        <p>#{msg['search.noResultFound']}</p>
+                </h:panelGroup>
+            </fieldset><br/>
+        </h:panelGroup>
+    </h:body>
+</html>
