@@ -58,6 +58,7 @@ public class SocialGroupBean implements Serializable {
     @PostConstruct
     public void init(){
         //coger la id del xhtml
+        //cosiparapoderHacerElUpdate
         groupPostList=this.postFacade.getGroupPost(loginBean.getCurrentSg());
         userList=this.userFacade.getUserList(loginBean.getCurrentSg());
     }
