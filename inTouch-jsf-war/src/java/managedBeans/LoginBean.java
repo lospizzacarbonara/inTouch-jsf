@@ -7,6 +7,7 @@ package managedBeans;
  */
 import static hash.SHA2.getSHA512;
 import inTouch.ejb.UserFacade;
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -27,6 +28,7 @@ public class LoginBean implements Serializable {
     protected String userName;
     protected String password;
     protected boolean loginError;
+    protected SocialGroup CurrentSg;
     /**
      * Creates a new instance of LoginBean
      */
@@ -82,4 +84,13 @@ public class LoginBean implements Serializable {
         password = null;
         return "login";
     }
+
+    public SocialGroup getCurrentSg() {
+        return CurrentSg;
+    }
+
+    public void setCurrentSg(SocialGroup CurrentSg) {
+        this.CurrentSg = CurrentSg;
+    }
+    
 }

@@ -41,7 +41,7 @@ and open the template in the editor.
         <table class="groupWallTable" align="center">
             <tr id="miembros">
                 <td>
-                    <ul>Miembros
+                    Miembros
                         <ui:repeat var="member" value="#{socialGroupBean.userList}">
                             <h:form>
                                 <h:commandLink action="#{userProfileUserBean.doUserProfileUser(member)}">
@@ -51,16 +51,17 @@ and open the template in the editor.
                             </h:form>                             
                             <br/>
                         </ui:repeat>
-                    </ul>
+                    
                 </td>
                 
                 <td class="posts">
                     <div id="groupPost">
+                        Posts
                         <ui:repeat var="post" value="#{socialGroupBean.groupPostList}">
                             <div class="box">
                                 <span class="deletePost" style="cursor: pointer; margin-right: -8px; float: right; color: red;">
                                     <h:form rendered="#{post.getAuthor().equals(loginBean.user)}">
-                                        <h:commandButton class="noStyleButton" value="&times;" action="#{adminPostBean.doPostDeletion(post)}" />
+                                        <h:commandButton class="noStyleButton" value="&times;" action="#{groupPostBean.doPostDeletion(post)}" />
                                     </h:form>
                                 </span>
                                 <h3 align="center">  

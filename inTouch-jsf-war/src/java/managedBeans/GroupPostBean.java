@@ -43,18 +43,20 @@ public class GroupPostBean implements Serializable{
     protected boolean isPublic=false;
     protected User user;
     protected SocialGroup sg;
+    int id;
 
     
     
     @PostConstruct
     public void setUp(){
         user = loginBean.getUser();
-        sg = socialGroupBean.getSocialGroup();
+        sg = loginBean.getCurrentSg();
+        
  
     }
     
         
-    public void doPostCreation(){
+    public String doPostCreation(){
         Date date = new Date();
         Post post = new Post(0, date, !isPublic); //Negation of isPublic, because the parameter is isPrivate
         post.setAuthor(user);
@@ -64,26 +66,26 @@ public class GroupPostBean implements Serializable{
         
         //recharge posts List
         if(isPublic){
-            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
-            socialGroupBean.doSelectGroup(sg.getId());
+            //socialGroupBean.setGroupPostList(postFacade.getGroupPost(loginBean.getCurrentSg()));
+           return socialGroupBean.doSelectGroup(loginBean.getCurrentSg().getId());
         } else {
-            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
-            socialGroupBean.doSelectGroup(sg.getId());
+            //socialGroupBean.setGroupPostList(postFacade.getGroupPost(loginBean.getCurrentSg()));
+            return socialGroupBean.doSelectGroup(loginBean.getCurrentSg().getId());
 
         }
     }
     
-    public void doPostDeletion(Post post){
+    public String doPostDeletion(Post post){
         postFacade.remove(post);
         
         //recharge posts List
-        if(post.getPrivate1()){
-            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
-            socialGroupBean.doSelectGroup(sg.getId());
-            
+        if(isPublic){
+            //socialGroupBean.setGroupPostList(postFacade.getGroupPost(loginBean.getCurrentSg()));
+           return socialGroupBean.doSelectGroup(loginBean.getCurrentSg().getId());
         } else {
-            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
-            socialGroupBean.doSelectGroup(sg.getId());
+            //socialGroupBean.setGroupPostList(postFacade.getGroupPost(loginBean.getCurrentSg()));
+            return socialGroupBean.doSelectGroup(loginBean.getCurrentSg().getId());
+
         }
     }
     // Add business logic below. (Right-click in editor and choose

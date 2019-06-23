@@ -37,6 +37,8 @@ public class SocialGroupBean implements Serializable {
     
     @EJB
     private PostFacade postFacade;
+    @Inject
+    private LoginBean loginBean;
     
     protected SocialGroup socialGroup;
     protected List<User> userList;
@@ -47,10 +49,11 @@ public class SocialGroupBean implements Serializable {
     public String doSelectGroup(int id){
         
         SocialGroup sg = this.socialGroupFacade.find(id);
-        socialGroup=sg;
-        groupPostList=this.postFacade.getGroupPost(sg);
-        userList=this.userFacade.getUserList(sg);
-        name=socialGroup.getName();
+        //socialGroup=sg;
+        loginBean.setCurrentSg(sg);
+        groupPostList=this.postFacade.getGroupPost(loginBean.getCurrentSg());
+        userList=this.userFacade.getUserList(loginBean.getCurrentSg());
+        
         return "groupWall";
     }
     //@PostConstruct
@@ -85,11 +88,11 @@ public class SocialGroupBean implements Serializable {
     }
     
     public String getDescription(){
-        return socialGroup.getDescription();
+        return loginBean.getCurrentSg().getDescription();
     }
     
     public String getName(){
-        return name;
+        return loginBean.getCurrentSg().getName();
     }
     
     
