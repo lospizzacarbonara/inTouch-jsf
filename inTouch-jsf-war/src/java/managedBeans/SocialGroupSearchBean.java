@@ -209,24 +209,7 @@ public class SocialGroupSearchBean implements Serializable{
         return res;
     }
     
-    /*public String getGroupButtonText(SocialGroup group) {
-        SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
-        String res;
-         
-        switch (memberStatus) {
-            case member:
-                res = "search.alreadyMember";
-                break;
-            case pending:
-                res = "search.petitionSent";
-                break;
-            default:
-                res = "search.joinGroup";
-                break;
-        }
-        
-        return res;
-    }*/
+    
             
     public boolean getFriendButtonDisabled(User user) {
         User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
@@ -234,11 +217,7 @@ public class SocialGroupSearchBean implements Serializable{
         return friendStatus != User.friendStatus.unrelated;
     }
     
-    /*public boolean getGroupButtonDisabled(SocialGroup group) {
-        SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
-       
-        return memberStatus != SocialGroup.membershipStatus.unrelated;
-    }*/
+
     
     public String getPost(User user) {
         Post post = (Post)userData.get(user)[0];
@@ -261,15 +240,5 @@ public class SocialGroupSearchBean implements Serializable{
         return "search";
     }
     
-    /*public String joinGroup(SocialGroup group) {
-        PendingMembership pending = new PendingMembership(0);
-        pending.setInvitation(false);
-        pending.setUser(loggedUser);
-        pending.setSocialGroup(group);
-        this.pendingMembershipFacade.create(pending);
-        
-        this.init();
-        return "search";
-    }*/
 }
 
