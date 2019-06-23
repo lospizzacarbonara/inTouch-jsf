@@ -208,8 +208,10 @@
                     <br/>
                     <ul>
                         <ui:repeat var="sg" value="#{adminGroupBean.groupList}">
-                            <li><a href="#">#{sg.getName()}</a></li>
-                            <br/>
+                            <h:form>
+                                <h:commandLink action="#{socialGroupBean.doSelectGroup(sg.getId())}" value="#{sg.getName()}"/>
+                                <br/>
+                            </h:form>
                         </ui:repeat>
                     </ul>
                     <!-- createGroup button -->

@@ -4,13 +4,26 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head >
-        <title>InTouch</title>
+        <style>
+                input.noStyleButton{
+                background-color: #37474f;
+                border: none;
+                color: red;
+                padding: 0;
+                text-decoration: none;
+                display: inline-block;
+            }
+        </style>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="resources/css/inTouch.css"/>
+        <link rel="stylesheet" href="resources/css/navmenu.css"/>
+                <title>InTouch</title>
     </h:head>
     
     <h:body>
@@ -28,7 +41,7 @@ and open the template in the editor.
         <table class="groupWallTable" align="center">
             <tr id="miembros">
                 <td>
-                    <ul>
+                    <ul>Miembros
                         <ui:repeat var="member" value="#{socialGroupBean.userList}">
                             <h:form>
                                 <h:commandLink action="#{userProfileUserBean.doUserProfileUser(member)}">
@@ -78,12 +91,80 @@ and open the template in the editor.
                 <div align="center"><p>Mensaje:</p></div>
                 <h:form id="postForm">
                     <h:inputTextarea value="#{groupPostBean.body}" rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
-                    public <h:selectBooleanCheckbox  value="#{groupPostBean.isPublic}" /><br/>
+                    
                     <!-- date and author on Bean -->
                     <h:commandButton value="Post it!" action="#{groupPostBean.doPostCreation()}"/>
                 </h:form>
             </div>
         </div>
+        
+        <!-- post modal script -->
+    <script>
+        // Modal script
+        let modal = document.getElementById("postModal");
+        let btn = document.getElementById("postButton");
+        let span = document.getElementsByClassName("close")[0];
+        
+        // Modal script
+        let cgModal = document.getElementById("createGroupModal");
+        let cgBtn = document.getElementById("createGroupButton");
+        let cgSpan = document.getElementsByClassName("close")[1];
+        
+        btn.onclick = function() {
+            if(modal.style.display !== "block"){
+                modal.style.display = "block";
+            } else {
+                modal.style.display = "none";
+            }
+        };
+        
+        cgBtn.onclick = function() {
+            if(cgModal.style.display !== "block"){
+                cgModal.style.display = "block";
+            } else {
+                cgModal.style.display = "none";
+            }
+        };
+        
+        span.onclick = function() {
+            modal.style.display = "none";
+        };
+        
+        cgSpan.onclick = function() {
+            cgModal.style.display = "none";
+        };
+        
+        window.onclick = function(event) {
+            if(event.target === modal){
+                modal.style.display="none";
+            }
+            
+            if(event.target === cgModal){
+                cgModal.style.display="none";
+            }
+        };
+    </script>
+    
+    <!-- Script for the tabs -->
+    <script>
+        function openChat(chatName, place) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i &lt; tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i &lt; tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(chatName).style.display = "block";
+            place.style.backgroundColor = '#9b30ff';
+
+        }
+        
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
     </h:body>
 </html>
 

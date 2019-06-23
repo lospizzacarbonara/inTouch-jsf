@@ -43,12 +43,14 @@ public class GroupPostBean implements Serializable{
     protected boolean isPublic=false;
     protected User user;
     protected SocialGroup sg;
+
     
     
     @PostConstruct
     public void setUp(){
         user = loginBean.getUser();
         sg = socialGroupBean.getSocialGroup();
+ 
     }
     
         
@@ -62,9 +64,12 @@ public class GroupPostBean implements Serializable{
         
         //recharge posts List
         if(isPublic){
-            postBean.setPublicPostList(postFacade.getPublicPost());
+            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
+            socialGroupBean.doSelectGroup(sg.getId());
         } else {
-            postBean.setPrivatePostList(postFacade.getPrivatePost(user));
+            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
+            socialGroupBean.doSelectGroup(sg.getId());
+
         }
     }
     
@@ -73,9 +78,12 @@ public class GroupPostBean implements Serializable{
         
         //recharge posts List
         if(post.getPrivate1()){
-            postBean.setPrivatePostList(postFacade.getPrivatePost(user));
+            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
+            socialGroupBean.doSelectGroup(sg.getId());
+            
         } else {
-            postBean.setPublicPostList(postFacade.getPublicPost());
+            socialGroupBean.setGroupPostList(postFacade.getGroupPost(sg));
+            socialGroupBean.doSelectGroup(sg.getId());
         }
     }
     // Add business logic below. (Right-click in editor and choose

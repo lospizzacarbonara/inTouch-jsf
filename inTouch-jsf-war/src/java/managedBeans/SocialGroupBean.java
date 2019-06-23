@@ -41,6 +41,7 @@ public class SocialGroupBean implements Serializable {
     protected SocialGroup socialGroup;
     protected List<User> userList;
     protected List<Post> groupPostList;
+    protected String name;
     
     
     public String doSelectGroup(int id){
@@ -49,6 +50,7 @@ public class SocialGroupBean implements Serializable {
         socialGroup=sg;
         groupPostList=this.postFacade.getGroupPost(sg);
         userList=this.userFacade.getUserList(sg);
+        name=socialGroup.getName();
         return "groupWall";
     }
     //@PostConstruct
@@ -87,7 +89,7 @@ public class SocialGroupBean implements Serializable {
     }
     
     public String getName(){
-        return socialGroup.getName();
+        return name;
     }
     
     
