@@ -52,7 +52,7 @@ public class GroupPostBean implements Serializable{
         user = loginBean.getUser();
         sg = loginBean.getCurrentSg();
         
- 
+    
     }
     
         
@@ -79,10 +79,10 @@ public class GroupPostBean implements Serializable{
         postFacade.remove(post);
         
         //recharge posts List
-        if(isPublic){
+        /*if(isPublic){
             //socialGroupBean.setGroupPostList(postFacade.getGroupPost(loginBean.getCurrentSg()));
            return socialGroupBean.doSelectGroup(loginBean.getCurrentSg().getId());
-        } else {
+        } else*/ {
             //socialGroupBean.setGroupPostList(postFacade.getGroupPost(loginBean.getCurrentSg()));
             return socialGroupBean.doSelectGroup(loginBean.getCurrentSg().getId());
 

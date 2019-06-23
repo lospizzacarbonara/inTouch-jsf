@@ -53,15 +53,14 @@ public class SocialGroupBean implements Serializable {
         loginBean.setCurrentSg(sg);
         groupPostList=this.postFacade.getGroupPost(loginBean.getCurrentSg());
         userList=this.userFacade.getUserList(loginBean.getCurrentSg());
-        
         return "groupWall";
     }
-    //@PostConstruct
-    //public void init(){
-    //    socialGroup=socialGroupFacade.find(this); //coger la id del xhtml
-    //    groupPostList=postFacade.findAll(); //coger los que tengan el id del grupo y sean de tipo grupo
-    //    userList=userFacade.findAll();  //coger todos los usuarios que sean de ese grupo
-    //}
+    @PostConstruct
+    public void init(){
+        //coger la id del xhtml
+        groupPostList=this.postFacade.getGroupPost(loginBean.getCurrentSg());
+        userList=this.userFacade.getUserList(loginBean.getCurrentSg());
+    }
 
     public void setSocialGroup(SocialGroup socialGroup) {
         this.socialGroup = socialGroup;
