@@ -7,6 +7,7 @@ package managedBeans;
 
 import inTouch.ejb.PostFacade;
 import inTouch.entity.Post;
+import inTouch.entity.SocialGroup;
 import inTouch.entity.User;
 import java.io.Serializable;
 import java.util.Date;
@@ -33,19 +34,21 @@ public class GroupPostBean implements Serializable{
     private LoginBean loginBean;
     
     @Inject
-    private SocialGroupBean sgBean;
+    private SocialGroupBean socialGroupBean;
     
     @Inject
     private PostBean postBean;   
     
     protected String body;
-    protected boolean isPublic;
+    protected boolean isPublic=false;
     protected User user;
+    protected SocialGroup sg;
     
     
     @PostConstruct
     public void setUp(){
         user = loginBean.getUser();
+        sg = socialGroupBean.getSocialGroup();
     }
     
         
@@ -54,6 +57,7 @@ public class GroupPostBean implements Serializable{
         Post post = new Post(0, date, !isPublic); //Negation of isPublic, because the parameter is isPrivate
         post.setAuthor(user);
         post.setBody(body);
+        post.setSocialGroup(sg);
         postFacade.create(post);
         
         //recharge posts List
@@ -100,6 +104,15 @@ public class GroupPostBean implements Serializable{
     public void setUser(User user) {
         this.user = user;
     }
+
+    public SocialGroup getSocialGroup() {
+        return sg;
+    }
+
+    public void setSocialGroup(SocialGroup sg) {
+        this.sg = sg;
+    }
+    
     
     
 }

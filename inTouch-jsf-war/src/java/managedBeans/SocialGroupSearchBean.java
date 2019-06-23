@@ -133,8 +133,8 @@ public class SocialGroupSearchBean implements Serializable{
         
         List<User> findUser = this.userFacade.findByUsername(searchText);
         userData = new TreeMap<User, Object[]>();
-        List<User> friends = this.groupFacade.getMembers(socialGroup);
-        List<User> pendingFriends = this.groupFacade.getPendingMembers(socialGroup);
+        List<User> members = this.groupFacade.getMembers(socialGroup);
+        List<User> pendingMembers = this.groupFacade.getPendingMembers(socialGroup);
 
         for (User u: findUser) {
             Object[] data = new Object[2];
@@ -146,13 +146,13 @@ public class SocialGroupSearchBean implements Serializable{
             else
                 data[0] = null;
 
-            //Friendship
-            if (friends.contains(u))
-                data[1] = User.friendStatus.friends;
-            else if (pendingFriends.contains(u))
-                data[1] = User.friendStatus.pending;
+            //Membership
+            if (members.contains(u))
+                data[1] = User.memberStatus.member;
+            else if (pendingMembers.contains(u))
+                data[1] = User.memberStatus.pending;
             else
-                data[1] = User.friendStatus.unrelated;
+                data[1] = User.memberStatus.not_member;
 
 
             userData.put(u, data);
@@ -191,25 +191,25 @@ public class SocialGroupSearchBean implements Serializable{
     }
     
     public String getFriendButtonText(User user) {
-         User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
+         User.memberStatus memberStatus = (User.memberStatus)userData.get(user)[1];
          String res;
          
-        switch (friendStatus) {
-            case friends:
-                res = "search.alreadyFriend";
+        switch (memberStatus) {
+            case member:
+                res = "searchSG.alreadyMember";
                 break;
             case pending:
-                res = "search.petitionSent";
+                res = "searchSG.invitationSent";
                 break;
             default:
-                res = "search.addFriend";
+                res = "search.inviteMember";
                 break;
         }
         
         return res;
     }
     
-    public String getGroupButtonText(SocialGroup group) {
+    /*public String getGroupButtonText(SocialGroup group) {
         SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
         String res;
          
@@ -226,7 +226,7 @@ public class SocialGroupSearchBean implements Serializable{
         }
         
         return res;
-    }
+    }*/
             
     public boolean getFriendButtonDisabled(User user) {
         User.friendStatus friendStatus = (User.friendStatus)userData.get(user)[1];
@@ -234,11 +234,11 @@ public class SocialGroupSearchBean implements Serializable{
         return friendStatus != User.friendStatus.unrelated;
     }
     
-    public boolean getGroupButtonDisabled(SocialGroup group) {
+    /*public boolean getGroupButtonDisabled(SocialGroup group) {
         SocialGroup.membershipStatus memberStatus = (SocialGroup.membershipStatus)groupData.get(group)[1];
        
         return memberStatus != SocialGroup.membershipStatus.unrelated;
-    }
+    }*/
     
     public String getPost(User user) {
         Post post = (Post)userData.get(user)[0];
@@ -248,25 +248,20 @@ public class SocialGroupSearchBean implements Serializable{
             return user.getUsername() + " has not posted yet";
     }
     
-    public String getPostGroup(SocialGroup group) {
-        Post post = (Post)groupData.get(group)[0];
-        if (post != null)
-            return Markdown.toHtml(post.getBody());
-        else
-            return group.getName() + " has not posted yet";
-    }
+
     
-    public String addFriend(User user) {
-        PendingFriendship pending = new PendingFriendship(0);
-        pending.setSender(loggedUser);
-        pending.setReceiver(user);
-        this.pendingFriendshipFacade.create(pending);
+        public String inviteMember(User user) {
+        PendingMembership pending = new PendingMembership(0);
+        pending.setSocialGroup(socialGroup);
+        pending.setUser(user);
+        pending.setInvitation(true);
+        this.pendingMembershipFacade.create(pending);
         
         init();
         return "search";
     }
     
-    public String joinGroup(SocialGroup group) {
+    /*public String joinGroup(SocialGroup group) {
         PendingMembership pending = new PendingMembership(0);
         pending.setInvitation(false);
         pending.setUser(loggedUser);
@@ -275,6 +270,6 @@ public class SocialGroupSearchBean implements Serializable{
         
         this.init();
         return "search";
-    }
+    }*/
 }
 

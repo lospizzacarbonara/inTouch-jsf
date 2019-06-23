@@ -48,6 +48,9 @@ public class User implements Serializable, Comparable {
     public enum friendStatus {
         friends, pending, unrelated;
     }
+    public enum memberStatus{
+        member, pending, not_member;
+    }
     
     private static final long serialVersionUID = 1L;
     @Id
