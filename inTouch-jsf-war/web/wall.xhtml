@@ -78,14 +78,14 @@
           .fixedButton {
               position: fixed;
               bottom: 75px;
-              right: 380px;
+              right: 370px;
               padding: 12px 28px;
           }
           
           #postButton {
               position: fixed;
               bottom: 75px;
-              right: 280px;
+              right: 260px;
               padding: 12px 28px;
           }
 
@@ -174,7 +174,7 @@
         
         <!-- Personal info  -->
         <div class="personalInfo" align="center">
-            <h1>Welcome: #{loginBean.userName}</h1>
+            <h1>#{msg['wall.welcome']} #{loginBean.userName}</h1>
         </div>
         
         <!-- Table for the wall on the main page (public/private) -->
@@ -183,22 +183,22 @@
                 <td class="groupHeader">
                     <!-- Groups div -->
                     <div>
-                        <h1>GRUPOS</h1>
+                        <h1>#{msg['wall.upperGroup']}</h1>
                     </div>
                 </td>
 
                 <td class="tabButtons">
                     <div align="center">
-                        <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen">Private</button>
+                        <button class="tablink" onclick="openChat('Private', this)" id="defaultOpen">#{msg['wall.private']}</button>
 
-                        <button class="tablink" onclick="openChat('Public', this)">Public</button>
+                        <button class="tablink" onclick="openChat('Public', this)">#{msg['wall.public']}</button>
                     </div>
                 </td>
 
                 <td class="inviteHeader">
                     <!-- Invites div -->
                     <div>
-                        <h1>INVITACIONES</h1>
+                        <h1>#{msg['wall.invites']}</h1>
                     </div>
                 </td>
             </tr>
@@ -218,7 +218,7 @@
                     </ul>
                     <!-- createGroup button -->
                     <br/>
-                    <button id="createGroupButton">Crear grupo</button>
+                    <button id="createGroupButton">#{msg['wall.newGroup']}</button>
                 </td>
 
                 <td class="content">
@@ -275,7 +275,7 @@
                 <td class="inviteList">
                     <h:panelGroup layout="block" rendered="#{!adminFriendInvitesBean.isEmpty}">
                         <br/>
-                        <h3>Amistad</h3>
+                        <h3>#{msg['wall.friendship']}</h3>
                         <hr/> 
                         <ui:repeat var="pendingFriend" value="#{adminFriendInvitesBean.friendInvites}">
                             <fieldset class="thirdSize">
@@ -287,17 +287,17 @@
                                     </h:form>  
                                 </legend>
                                 <h:form>
-                                    <h:commandButton action="#{friendsBean.accept(user)}" value="Aceptar"/>
+                                    <h:commandButton action="#{friendsBean.accept(user)}" value="#{msg['wall.accept']}"/>
                                 </h:form>
                                 <h:form>
-                                    <h:commandButton action="#{friendsBean.deny(user)}" value="Rechazar"/>
+                                    <h:commandButton action="#{friendsBean.deny(user)}" value="#{msg['wall.decline']}"/>
                                 </h:form>
                             </fieldset>
                             <br/>
                         </ui:repeat>
                     </h:panelGroup>
                     <h:panelGroup layout="block" rendered="#{!adminGroupInvitesBean.isEmpty}">
-                        <h3>Grupos</h3>
+                        <h3>#{msg['wall.lowerGroup']}</h3>
                         <hr/>
                         <ui:repeat var="pendingGroup" value="#{adminGroupInvitesBean.groupInvites}">
                             <fieldset class="thirdSize">
@@ -307,12 +307,12 @@
                                 <h:form>
                                         <input type="hidden" name="acceptGroupId" value="id"/>
                                         <input type="hidden" name="pageURL" value="url"/>
-                                        <h:commandButton value="aceptar"/>
+                                        <h:commandButton value="#{msg['wall.accept']}"/>
                                 </h:form>
                                 <h:form>
                                         <input type="hidden" name="cancelGroupId" value="id"/>
                                         <input type="hidden" name="pageURL" value="url"/>
-                                        <h:commandButton value="rechazar"/>
+                                        <h:commandButton value="#{msg['wall.decline']}"/>
                                 </h:form>
                             </fieldset>
                             <br/>
@@ -323,21 +323,21 @@
         </table>
         
         <!-- Up button -->
-        <a href="#R1"><button class="fixedButton">UP</button></a>
+        <a href="#R1"><button class="fixedButton">#{msg['wall.up']}</button></a>
     
         <!-- Post button -->
-        <button id="postButton">POST</button>
+        <button id="postButton">#{msg['wall.post']}</button>
     
         <!-- Post form -->
         <div id="postModal" class="modal" align="center">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <div align="center"><p>Mensaje:</p></div>
+                <div align="center"><p>#{msg['wall.postIt']}</p></div>
                 <h:form id="postForm">
-                    <h:inputTextarea value="#{adminPostBean.body}" rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
-                    public <h:selectBooleanCheckbox  value="#{adminPostBean.isPublic}" /><br/>
+                    <h:inputTextarea value="#{adminPostBean.body}" rows="5" cols="50" required="true" requiredMessage="#{msg['wall.postError']}"></h:inputTextarea><br/><br/>
+                    #{msg['wall.public']} <h:selectBooleanCheckbox  value="#{adminPostBean.isPublic}" /><br/><br/>
                     <!-- date and author on Bean -->
-                    <h:commandButton value="Post it!" action="#{adminPostBean.doPostCreation()}"/>
+                    <h:commandButton value="#{msg['wall.postIt']}" action="#{adminPostBean.doPostCreation()}"/>
                 </h:form>
             </div>
         </div>
@@ -347,12 +347,12 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h:form id="createGroupForm">
-                <div align="center"><p>GroupName</p></div>
-                <h:inputText class="groupName" value="#{adminGroupBean.groupName}" required="true" requiredMessage="El nombre es obligatorio"/>
+                <div align="center"><p>#{msg['wall.groupName']}</p></div>
+                <h:inputText class="groupName" value="#{adminGroupBean.groupName}" required="true" requiredMessage="#{msg['wall.groupError']}"/>
                 <br/><br/><br/>
-                <div align="center"><p>groupDesc</p></div>
+                <div align="center"><p>#{msg['wall.groupDescription']}</p></div>
                 <h:inputTextarea value="#{adminGroupBean.groupDesc}" rows="5" cols="50"></h:inputTextarea><br/><br/>
-                <h:commandButton value="create Group" action="#{adminGroupBean.doGroupCreation()}"/>
+                <h:commandButton value="#{msg['wall.createGroup']}" action="#{adminGroupBean.doGroupCreation()}"/>
             </h:form>
         </div>
     </div>
