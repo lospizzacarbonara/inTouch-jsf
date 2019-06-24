@@ -17,13 +17,14 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author Toshiba
  */
 @Named(value = "signUpBean")
-@RequestScoped
+@SessionScoped
 
 public class SignUpBean implements Serializable {
     
