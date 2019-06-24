@@ -59,7 +59,7 @@ and open the template in the editor.
                     <h:form>
                         <fieldset class="card">
                             <legend class="center-legend">
-                                    <h:link outcome="search" value="#{group.getName()}"/>
+                                    <h:commandLink action="#{socialGroupBean.doSelectGroup(group.getId())}" value="#{group.getName()}"/>
 
                                     <h:commandButton action="#{searchBean.joinGroup(group)}" value="#{msg[searchBean.getGroupButtonText(group)]}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
                             </legend>
