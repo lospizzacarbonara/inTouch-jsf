@@ -23,8 +23,7 @@ and open the template in the editor.
             <h:form>
                 <fieldset>
                      <legend>#{msg['search.userSearch']}</legend>
-                     #{msg['search.search']}: <h:inputText id="textbox" value="#{searchBean.searchText}">
-                         <f:ajax event="keyup" execute="textbox" listener="#{searchBean.search()}" render="friends groups"/>
+                     #{msg['search.search']}: <h:inputText id="textbox" value="#{groupSearchBean.searchText}">
                      </h:inputText><br/>
                  </fieldset>
             </h:form>
@@ -33,45 +32,23 @@ and open the template in the editor.
         <h:panelGroup id="friends" layout="block" style="text-align:center">
             <fieldset>
                 <legend>#{msg['search.users']}</legend> 
-                <ui:repeat var="user" value="#{searchBean.userList}">
+                <ui:repeat var="user" value="#{groupSearchBean.userList}">
                     <fieldset class="card">
                         <legend class="center-legend">
                                 <h:form>
                                     <h:commandLink action="#{userProfileUserBean.doUserProfileUser(user)}" value="#{user.getUsername()}"/>
-                                    <h:commandButton action="#{searchBean.addFriend(user)}" value="#{msg[searchBean.getFriendButtonText(user)]}" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
+                                    <h:commandButton action="#{groupSearchBean.inviteMember(user)}" value="#hola" disabled="#{searchBean.getFriendButtonDisabled(user)}"/>
                                 </h:form>
                         </legend>
-                        <h:outputText value="#{searchBean.getPost(user)}" escape="false"/>
+                        <h:outputText value="#{groupSearchBean.getPost(user)}" escape="false"/>
                     </fieldset><br/>
 
                 </ui:repeat>
                 <!-- No Friends -->
-                <h:panelGroup layout="block" rendered="#{searchBean.userList.isEmpty()}">
+                <h:panelGroup layout="block" rendered="#{groupSearchBean.userList.isEmpty()}">
                     <p>#{msg['search.noResultFound']}</p>
                 </h:panelGroup>
             </fieldset>
-        </h:panelGroup>
-        <!-- Groups -->
-        <h:panelGroup id="groups" layout="block" style="text-align:center">
-            <fieldset>
-                <legend>#{msg['search.groups']}</legend> 
-                <ui:repeat var="group" value="#{searchBean.groupList}">
-                    <h:form>
-                        <fieldset class="card">
-                            <legend class="center-legend">
-                                    <h:link outcome="search" value="#{group.getName()}"/>
-
-                                    <h:commandButton action="#{searchBean.joinGroup(group)}" value="#{msg[searchBean.getGroupButtonText(group)]}" disabled="#{searchBean.getGroupButtonDisabled(group)}"/>
-                            </legend>
-                            <h:outputText value="#{searchBean.getPostGroup(group)}" escape="false"/>
-                        </fieldset>
-                    </h:form>
-                </ui:repeat>
-                <!-- No Groups -->
-                <h:panelGroup layout="block" rendered="#{searchBean.groupList.isEmpty()}">
-                        <p>#{msg['search.noResultFound']}</p>
-                </h:panelGroup>
-            </fieldset><br/>
         </h:panelGroup>
     </h:body>
 </html>
