@@ -33,15 +33,21 @@ and open the template in the editor.
         <!--group info [Group Name+Desc]-->
         
         <div class="GroupInfo" align="left">
-            <h1>#{socialGroupBean.name}</h1>
+            <h1>#{msg['groupWall.group']} #{socialGroupBean.name}</h1>
         <br/>
-            #{socialGroupBean.description}
+           #{msg['groupWall.description']} #{socialGroupBean.description}
         </div>
-        
+        <div align="center">
+            <h:form >
+                <h:commandButton action="#{groupSearchBean.search()}" value="#{msg['groupWall.search']}"/>
+                <br/>
+                <br/>
+            </h:form>
+        </div>
         <table class="groupWallTable" align="center">
             <tr id="miembros">
                 <td>
-                    Miembros
+                    <legend>#{msg['groupWall.members']}</legend>
                         <ui:repeat var="member" value="#{socialGroupBean.userList}">
                             <h:form>
                                 <h:commandLink action="#{userProfileUserBean.doUserProfileUser(member)}">
@@ -53,10 +59,12 @@ and open the template in the editor.
                         </ui:repeat>
                     
                 </td>
+            </tr>
+            <tr>
                 
                 <td class="posts">
-                    <div id="groupPost">
-                        Posts
+                    <div id="groupPost" align="left">
+                        <legend>#{msg['groupWall.posts']}</legend>
                         <ui:repeat var="post" value="#{socialGroupBean.groupPostList}">
                             <div class="box">
                                 <span class="deletePost" style="cursor: pointer; margin-right: -8px; float: right; color: red;">
@@ -89,12 +97,12 @@ and open the template in the editor.
         <div id="postModal" class="modal" align="center">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <div align="center"><p>Mensaje:</p></div>
+                <div align="center"><p>#{msg['groupWall.message']}</p></div>
                 <h:form id="postForm">
-                    <h:inputTextarea value="#{groupPostBean.body}" rows="5" cols="50" required="true" requiredMessage="debes introducir texto para el post"></h:inputTextarea><br/><br/>
+                    <h:inputTextarea value="#{groupPostBean.body}" rows="5" cols="50" required="true" requiredMessage="#{msg['wall.postError']}"></h:inputTextarea><br/><br/>
                     
                     <!-- date and author on Bean -->
-                    <h:commandButton value="Post it!" action="#{groupPostBean.doPostCreation()}"/>
+                    <h:commandButton value="#{msg['wall.postIt']}" action="#{groupPostBean.doPostCreation()}"/>
                 </h:form>
             </div>
         </div>
